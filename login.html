@@ -5,62 +5,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Intranet 88044</title>
+    <title>Intranet · I.E.P. 88044 Abraham Valdelomar</title>
 
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
+<body class="login-page login-tech">
 
-    <main class="login-container">
+    <main class="login-container login-container--split">
 
-        <section class="login-card">
+        <!-- Fondo digital generado solo con CSS (líneas, puntos y resplandores
+             sutiles en tonos institucionales). No usa imágenes externas. -->
+        <div class="login-bg-digital" aria-hidden="true"></div>
 
-            <!-- Logo -->
-            <div class="logo-container">
-                <img
-                    src="img/brand/escudo.png"
-                    alt="Escudo de la institución educativa"
-                    class="logo"
-                >
-            </div>
+        <div class="login-shell">
 
-            <!-- Encabezado -->
-            <div class="login-header">
-                <span class="institution">IE 88044</span>
+            <!-- Costado de identidad institucional -->
+            <aside class="login-brand-panel">
 
-                <h1>Bienvenido</h1>
+                <div class="logo-container">
+                    <img
+                        src="img/brand/escudo.png"
+                        alt="Escudo de la institución educativa"
+                        class="logo"
+                    >
+                </div>
 
-                <p>
-                    Intranet de Gestión Documental
+                <div class="login-brand">
+                    <span class="login-brand-title">ABRAHAM VALDELOMAR</span>
+                    <span class="login-brand-sub">I.E.P. N&deg; 88044</span>
+                    <span class="login-brand-desc">INTRANET INSTITUCIONAL </span>
+                </div>
+
+            </aside>
+
+            <!-- Costado del formulario de acceso -->
+            <section class="login-card">
+
+<div class="login-card-eyebrow">
+    <span class="login-card-eyebrow-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <circle cx="12" cy="12" r="9"></circle>
+            <path d="M3 12h18"></path>
+            <path d="M12 3c2.5 2.5 3.8 5.5 3.8 9S14.5 18.5 12 21"></path>
+            <path d="M12 3c-2.5 2.5-3.8 5.5-3.8 9S9.5 18.5 12 21"></path>
+        </svg>
+    </span>
+
+    <span class="login-card-eyebrow-text">Intranet</span>
+</div>
+
+                <!-- Mensaje de error (se muestra solo si el backend redirige con ?error=) -->
+                <p class="login-error" id="loginError" role="alert" hidden></p>
+
+                <!-- Mensaje de éxito (backend/auth/restablecer_confirmar.php redirige con ?reset=1) -->
+                <p class="login-success" id="loginReset" role="status" hidden>
+                    Contraseña actualizada correctamente. Ya puedes iniciar sesión.
                 </p>
-            </div>
 
             <!-- Formulario -->
             <form
                 action="backend/auth/login.php"
                 method="POST"
                 class="login-form"
+                id="loginForm"
             >
 
                 <div class="form-group">
 
-                    <label for="correo">
-                        Correo institucional
+                    <label for="usuario">
+                        USUARIO
                     </label>
 
                     <div class="input-container">
-                        <span class="input-icon">✉</span>
+                        <span class="input-icon"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg></span>
 
+                        <!-- type="text" (NO number ni email): el código de estudiante
+                             tiene ceros iniciales y debe viajar como texto. -->
                         <input
-                            type="email"
-                            id="correo"
-                            name="correo"
-                            placeholder="usuario@ie88044.edu.pe"
-                            autocomplete="email"
+                            type="text"
+                            id="usuario"
+                            name="usuario"
+                            placeholder="Código de estudiante o correo"
+                            autocomplete="username"
+                            autocapitalize="none"
+                            autocorrect="off"
+                            spellcheck="false"
+                            maxlength="150"
                             required
                         >
                     </div>
+
+                    <small class="login-hint" style="display:block;margin-top:6px;color:#475569;font-size:.82rem;line-height:1.4;">
+                        Padres: puedes ingresar con el código de estudiante (14 dígitos) o con tu correo.
+                    </small>
 
                 </div>
 
@@ -68,11 +106,11 @@
                 <div class="form-group">
 
                     <label for="password">
-                        Contraseña
+                        CLAVE
                     </label>
 
                     <div class="input-container">
-                        <span class="input-icon">🔒</span>
+                        <span class="input-icon"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></span>
 
                         <input
                             type="password"
@@ -89,7 +127,7 @@
                             onclick="togglePassword()"
                             aria-label="Mostrar contraseña"
                         >
-                            👁
+                            <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
                         </button>
 
                     </div>
@@ -108,7 +146,7 @@
                         <span>Recordarme</span>
                     </label>
 
-                    <a href="#" class="forgot-password">
+                    <a href="recuperar-contrasena.html" class="forgot-password">
                         ¿Olvidaste tu contraseña?
                     </a>
 
@@ -118,33 +156,41 @@
                 <button
                     type="submit"
                     class="btn-login"
+                    id="btnLogin"
                 >
-                    <span>Iniciar sesión</span>
-                    <span class="arrow">→</span>
+                    <span class="btn-login-label">Ingresar</span>
+                    <span class="arrow"><svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"/><path d="m13.5 5.5 6.5 6.5-6.5 6.5"/></svg></span>
                 </button>
 
             </form>
 
 
-            <!-- Pie -->
-            <div class="login-footer">
+                <!-- Pie -->
+                <div class="login-footer">
 
-                <p>
-                    Sistema exclusivo para personal autorizado
-                </p>
+                    <p>
+                        Sistema exclusivo para personal autorizado
+                    </p>
 
-                <span>
-                    © 2026 IE 88044
-                </span>
+                    <span>
+                        © 2026 I.E.P. 88044 ABRAHAM VALDELOMAR 
+                    </span>
 
-            </div>
+                    <p class="login-legal" style="margin-top:8px;font-size:.78rem"><a href="privacidad.html">Privacidad</a> · <a href="terminos.html">Términos</a> · <a href="cookies.html">Cookies</a></p>
 
-        </section>
+                </div>
+
+            </section>
+
+        </div>
 
     </main>
 
 
     <script>
+
+        const ICON_EYE = '<svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>';
+        const ICON_EYE_OFF = '<svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M10.6 6.2A9.6 9.6 0 0 1 12 6c6.4 0 10 6 10 6a17 17 0 0 1-3.2 3.9"/><path d="M6.6 7.6A16.6 16.6 0 0 0 2 12s3.6 7 10 7a9.5 9.5 0 0 0 4-.9"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2"/></svg>';
 
         function togglePassword() {
 
@@ -157,19 +203,67 @@
             if (password.type === "password") {
 
                 password.type = "text";
-                button.textContent = "🙈";
+                button.innerHTML = ICON_EYE_OFF;
 
             } else {
 
                 password.type = "password";
-                button.textContent = "👁";
+                button.innerHTML = ICON_EYE;
 
             }
 
         }
 
+        // ==========================================
+        // Mensaje de error enviado por backend/auth/login.php
+        // (login.php redirige aquí con ?error=mensaje cuando
+        // el usuario (correo o código), la contraseña o el estado no
+        // son válidos; no cambia la lógica de autenticación,
+        // solo cómo se muestra el mensaje).
+        // ==========================================
+        (function mostrarErrorSiExiste() {
+            const params = new URLSearchParams(window.location.search);
+            const mensaje = params.get("error");
+            const errorBox = document.getElementById("loginError");
+
+            if (mensaje && errorBox) {
+                errorBox.textContent = mensaje;
+                errorBox.hidden = false;
+            }
+        })();
+
+        // Mensaje enviado por backend/auth/restablecer_confirmar.php
+        // tras un restablecimiento de contraseña exitoso.
+        (function mostrarResetSiExiste() {
+            const params = new URLSearchParams(window.location.search);
+            const resetBox = document.getElementById("loginReset");
+            if (params.get("reset") === "1" && resetBox) {
+                resetBox.hidden = false;
+            }
+        })();
+
+        // ==========================================
+        // Estado de carga del botón "Ingresar" mientras
+        // el navegador envía el formulario (no interfiere
+        // con el envío real ni con la validación existente).
+        // ==========================================
+        (function estadoCargaLogin() {
+            const form = document.getElementById("loginForm");
+            const btn = document.getElementById("btnLogin");
+            if (!form || !btn) return;
+
+            form.addEventListener("submit", () => {
+                if (!form.checkValidity()) return; // deja que el navegador muestre los campos requeridos
+                btn.disabled = true;
+                btn.classList.add("is-loading");
+                const label = btn.querySelector(".btn-login-label");
+                if (label) label.textContent = "Ingresando...";
+            });
+        })();
+
     </script>
 
+<script src="js/cookies.js"></script>
 </body>
 
 </html>

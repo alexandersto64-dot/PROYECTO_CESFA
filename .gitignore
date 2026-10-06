@@ -1,0 +1,21 @@
+# Credenciales reales de correo (SMTP) — nunca se suben al
+# repositorio. Ver backend/config/correo.local.php.example para
+# la plantilla que sí se sube.
+backend/config/correo.local.php
+
+# Credenciales de BD reales y datos de alumnos: nunca al repositorio
+backend/config/database.local.php
+backend/config/debug_*.txt
+backend/uploads/boletas/*
+backend/uploads/envios/*
+!backend/uploads/**/.gitkeep
+
+# Cuenta de prueba con contraseña conocida: nunca al repositorio
+backend/config/seed_padre_prueba.sql
+
+# Respaldos generados por herramientas/respaldar.php (contienen datos de menores)
+herramientas/respaldos/
+
+# Variables de entorno y copias locales
+.env
+*.bak

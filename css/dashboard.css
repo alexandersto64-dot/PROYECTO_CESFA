@@ -1,0 +1,2102 @@
+/* ============================================================
+   I.E.P. 88044 — Intranet / Paneles (admin, subdirector, profesor)
+   Reutiliza las variables de diseño de css/styles.css (azul
+   eléctrico + blanco + gris + celeste pastel) para que el
+   Intranet se sienta parte del mismo proyecto que el sitio
+   público. Este archivo solo añade lo que styles.css no cubre:
+   el layout propio de los paneles internos.
+   ============================================================ */
+
+:root{
+  /* Sombra más discreta que --shadow (de styles.css) para tarjetas
+     de uso frecuente dentro del Intranet: mismo lenguaje visual,
+     menos "elevación" para no sobrecargar pantallas con muchas
+     tarjetas (grados, materiales, trabajos, estadísticas). */
+  --shadow-sm: 0 4px 14px rgba(16,40,78,.08);
+}
+
+body{
+  background: var(--sand);
+  min-height: 100vh;
+}
+
+/* ============ ICONOGRAFÍA SVG (reemplaza los emojis) ============ */
+.icon{ width:18px; height:18px; flex-shrink:0; display:inline-block; vertical-align:middle; }
+
+/* ============ LAYOUT CON SIDEBAR ============ */
+.app-shell{
+  display:flex;
+  min-height:100vh;
+  align-items:flex-start;
+}
+.app-content{
+  flex:1;
+  min-width:0;
+}
+
+.sidebar{
+  --sidebar-w: 264px;
+  width: var(--sidebar-w);
+  flex-shrink:0;
+  min-height:100vh;
+  position:sticky;
+  top:0;
+  background: var(--ocean-deep);
+  color: var(--white);
+  display:flex;
+  flex-direction:column;
+  padding: 16px 0 20px;
+  transition: width .18s ease;
+}
+.sidebar-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding: 4px 12px 16px 20px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+}
+.sidebar-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+}
+.sidebar-brand-icon{ display:flex; flex-shrink:0; color: var(--sun); }
+.sidebar-brand-icon .icon{ width:22px; height:22px; }
+.sidebar-brand strong{
+  display:block;
+  font-family: var(--font-display);
+  font-size: .95rem;
+  line-height:1.2;
+  white-space:nowrap;
+}
+.sidebar-brand span{
+  display:block;
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,.7);
+  white-space:nowrap;
+}
+.sidebar-collapse-btn{
+  flex-shrink:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  border:none;
+  background: rgba(255,255,255,.1);
+  color: var(--white);
+  cursor:pointer;
+  transition: background .15s ease, transform .2s ease;
+}
+.sidebar-collapse-btn:hover{ background: rgba(255,255,255,.2); }
+.sidebar-collapse-btn .icon{ width:15px; height:15px; }
+
+/* Identidad del profesor autenticado */
+.sidebar-identity{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding: 12px 20px;
+  border-bottom: 1px solid rgba(255,255,255,.14);
+}
+.sidebar-avatar{
+  flex-shrink:0;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  background: rgba(255,255,255,.16);
+  color: var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family: var(--font-display);
+  font-weight:700;
+  font-size: var(--text-sm);
+}
+.sidebar-identity-text{ min-width:0; }
+.sidebar-identity-text strong{
+  display:block;
+  font-size: var(--text-sm);
+  line-height:1.25;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.sidebar-identity-text span{
+  display:block;
+  font-size: var(--text-xs);
+  color: rgba(255,255,255,.7);
+  white-space:nowrap;
+}
+
+.sidebar-group-title{
+  margin: 14px 20px 4px;
+  font-size: 11px;
+  font-weight:700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: rgba(255,255,255,.45);
+}
+.sidebar-nav .sidebar-group-title:first-child{ margin-top:10px; }
+
+/* Grupos colapsables del sidebar (js/panel.js).
+   Es un <div role="button"> a propósito, no un <button>: algunos
+   navegadores (y más en Linux/tema del SO) dibujan el <button> con
+   su "chrome" nativo -fondo gris claro en pastilla redondeada- por
+   ENCIMA de background:none/appearance:none, dejando el texto casi
+   invisible. Un div nunca tiene ese estilo nativo que pelear, así
+   que el fondo transparente y el texto quedan garantizados siempre.
+   Ver js/panel.js para el soporte de teclado (Enter/Espacio) que
+   un <button> trae gratis y un div con role="button" no. */
+.sidebar-group-title.sidebar-group-toggle{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  width: calc(100% - 24px);
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 8px;
+  outline: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight:700;
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  color: rgba(255,255,255,.65);
+  cursor:pointer;
+  padding: 6px 8px;
+  margin: 14px 12px 4px;
+  user-select:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  box-shadow: none !important;
+  transition: background-color .15s ease, color .15s ease;
+}
+.sidebar-group-title.sidebar-group-toggle:hover{
+  background-color: rgba(255,255,255,.08) !important;
+  color: rgba(255,255,255,.95);
+}
+.sidebar-group-title.sidebar-group-toggle:focus-visible{
+  color: rgba(255,255,255,.95);
+  box-shadow: 0 0 0 2px rgba(255,255,255,.35) !important;
+}
+.sidebar-group-caret{ display:flex; width:12px; flex-shrink:0; transition: transform .2s ease; color: inherit; }
+.sidebar-group-caret .icon{ width:12px; height:12px; }
+.sidebar-group-toggle[aria-expanded="false"] .sidebar-group-caret{ transform: rotate(-90deg); }
+.sidebar-group-items{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  background:none;
+  box-shadow:none;
+  border-radius:0;
+  padding:0;
+  margin:0;
+}
+.sidebar-group-items.is-collapsed{ display:none; }
+body.sidebar-collapsed .sidebar-group-toggle{ pointer-events:none; }
+
+.sidebar-nav{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding: 4px 12px 0;
+  overflow-y:auto;
+  overflow-x:hidden;
+}
+.nav-link{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  background:none;
+  border:none;
+  color: rgba(255,255,255,.85);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight:600;
+  text-align:left;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  cursor:pointer;
+  transition: background .15s ease, color .15s ease;
+}
+.nav-link:hover{ background: rgba(255,255,255,.1); color: var(--white); }
+.nav-link.active{ background: var(--white); color: var(--ocean-deep); box-shadow: inset 3px 0 0 var(--ocean-mid); }
+.nav-link.active .nav-icon{ color: var(--ocean-deep); }
+.nav-icon{ display:flex; width:20px; flex-shrink:0; color: rgba(255,255,255,.85); }
+.nav-link:hover .nav-icon, .nav-link.active .nav-icon{ color:inherit; }
+.nav-caret{ margin-left:auto; display:flex; transition: transform .2s ease; }
+.nav-caret .icon{ width:14px; height:14px; }
+.nav-parent.open > .nav-parent-toggle .nav-caret{ transform: rotate(180deg); }
+
+.nav-submenu{
+  max-height:0;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  padding-left: 38px;
+  transition: max-height .2s ease;
+}
+.nav-parent.open .nav-submenu{ max-height: 480px; }
+.nav-sublink{
+  line-height: 1.3;
+  padding: 9px 10px;
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,.75);
+  border-radius: var(--radius-sm);
+}
+.nav-sublink:hover{ background: rgba(255,255,255,.1); color: var(--white); }
+.nav-sublink.active{ background: var(--white); color: var(--ocean-deep); font-weight:700; }
+
+.sidebar-notif{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin: 10px 12px 6px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight:600;
+  color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.06);
+}
+.sidebar-notif .nav-icon{ width:20px; color: rgba(255,255,255,.85); }
+a.sidebar-notif:hover{ background: rgba(255,255,255,.12); color: var(--white); }
+.sidebar-notif.has-unread{ background: rgba(255,255,255,.12); }
+.sidebar-notif .notif-count{
+  margin-left:auto;
+  background: #ef4444;
+  color: var(--white);
+  font-size: var(--text-xs);
+  font-weight:800;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding: 0 6px;
+}
+
+/* Contexto de grado actual (nivel + grado), mostrado debajo de la
+   identidad cuando la página que incluye el sidebar ya tiene un
+   grado en contexto, o cuando el profesor tiene varios grados y
+   puede cambiar de uno a otro sin recargar (ver #sidebarGradoSelector
+   en js/panel.js). Puramente informativo cuando es texto fijo. */
+.sidebar-context{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin: 10px 12px;
+  padding: 9px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight:700;
+  color: var(--white);
+  background: rgba(255,255,255,.1);
+  border: 1px dashed rgba(255,255,255,.25);
+}
+.sidebar-context .nav-icon{ color: var(--sun); width:18px; }
+.sidebar-context-select{ padding: 5px 8px 5px 12px; }
+.sidebar-context-select select{
+  flex:1;
+  min-width:0;
+  background: transparent;
+  border: none;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight:700;
+  padding: 6px 4px;
+  cursor:pointer;
+}
+.sidebar-context-select select:focus{ outline: 2px solid var(--sun); border-radius:4px; }
+.sidebar-context-select select option{ color: var(--ink); }
+
+.sidebar-logout{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin: 12px 12px 0;
+  padding: 11px 12px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight:700;
+  color: rgba(255,255,255,.85);
+  border-top: 1px solid rgba(255,255,255,.14);
+  padding-top: 16px;
+}
+.sidebar-logout:hover{ background: rgba(255,255,255,.08); color: var(--white); }
+.sidebar-logout .nav-icon{ color: inherit; }
+
+.sidebar-toggle{
+  display:none;
+  position:fixed;
+  top:16px;
+  left:16px;
+  z-index:60;
+  width:42px;
+  height:42px;
+  align-items:center;
+  justify-content:center;
+  border-radius:50%;
+  border:none;
+  background: var(--ocean-deep);
+  color: var(--white);
+  cursor:pointer;
+  box-shadow: 0 6px 18px rgba(16,40,78,.25);
+}
+.sidebar-toggle .icon{ width:20px; height:20px; }
+.sidebar-toggle .icon-menu-close{ display:none; }
+.sidebar-toggle[aria-expanded="true"] .icon-menu-open{ display:none; }
+.sidebar-toggle[aria-expanded="true"] .icon-menu-close{ display:inline-block; }
+.sidebar-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background: rgba(16,40,78,.4);
+  z-index:45;
+}
+.sidebar-overlay.visible{ display:block; }
+
+/* ============ SIDEBAR CONTRAÍDO (solo escritorio) ============
+   Se activa con #sidebarCollapseBtn (js/panel.js), que agrega
+   .sidebar-collapsed al <body> y recuerda la preferencia en
+   localStorage. Solo oculta etiquetas de texto: los enlaces, el
+   contador de notificaciones y los permisos no cambian, y cada
+   ítem conserva su "title" como tooltip nativo del navegador. */
+body.sidebar-collapsed .sidebar{ width: 76px; }
+body.sidebar-collapsed .sidebar-label,
+body.sidebar-collapsed .sidebar-group-title,
+body.sidebar-collapsed .notif-count{ display:none; }
+body.sidebar-collapsed .sidebar-top{ justify-content:center; padding-left:12px; padding-right:12px; }
+body.sidebar-collapsed .sidebar-brand{ justify-content:center; }
+body.sidebar-collapsed .sidebar-collapse-btn{ transform: rotate(180deg); }
+body.sidebar-collapsed .sidebar-identity{ justify-content:center; padding-left:12px; padding-right:12px; }
+body.sidebar-collapsed .sidebar-notif,
+body.sidebar-collapsed .sidebar-context{ justify-content:center; margin-left:8px; margin-right:8px; padding-left:8px; padding-right:8px; }
+body.sidebar-collapsed .sidebar-context-select select{ display:none; }
+body.sidebar-collapsed .nav-link{ justify-content:center; }
+body.sidebar-collapsed .nav-caret{ display:none; }
+body.sidebar-collapsed .nav-parent .nav-submenu{ display:none; }
+body.sidebar-collapsed .sidebar-logout{ justify-content:center; }
+
+@media (max-width: 900px){
+  .sidebar-toggle{ display:flex; }
+  .sidebar{
+    position:fixed;
+    top:0; left:0; bottom:0;
+    z-index:50;
+    width: 280px;
+    transform: translateX(-100%);
+    transition: transform .2s ease;
+    box-shadow: 0 0 30px rgba(0,0,0,.2);
+  }
+  .sidebar.open{ transform: translateX(0); }
+  /* En móvil el sidebar siempre se ve completo cuando está abierto:
+     "contraer" es una comodidad de escritorio, no tiene sentido con
+     overlay + ancho fijo. */
+  body.sidebar-collapsed .sidebar{ width:280px; }
+  body.sidebar-collapsed .sidebar-label{ display:block; }
+  body.sidebar-collapsed .sidebar-group-title{ display:flex; }
+  body.sidebar-collapsed .sidebar-group-toggle{ pointer-events:auto; }
+  body.sidebar-collapsed .sidebar-context-select select{ display:block; }
+  .sidebar-collapse-btn{ display:none; }
+}
+
+/* ============ ENCABEZADO DEL PANEL ============ */
+.app-content > header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  background: var(--white);
+  padding: 18px clamp(20px, 4vw, 40px);
+  border-bottom: 1px solid #e7edf1;
+}
+.app-content > header h1{
+  font-family: var(--font-display);
+  color: var(--ocean-deep);
+  font-size: clamp(1.2rem, 2.2vw, 1.5rem);
+  margin: 0;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.app-content > header .header-eyebrow{
+  display:block;
+  margin: 0 0 2px;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  font-weight:700;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+.app-content > header p{
+  margin:2px 0 0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+.app-content > header a{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  border: 1.5px solid var(--ocean-deep);
+  color: var(--ocean-deep);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  padding: 8px 16px;
+  border-radius: 999px;
+  transition: background .15s ease, color .15s ease;
+  white-space: nowrap;
+}
+.app-content > header a:hover{
+  background: var(--ocean-deep);
+  color: var(--white);
+}
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.btn-secondary{
+  background: var(--white);
+}
+
+/* Identidad del profesor + notificaciones dentro del header (Dashboard) */
+.header-identity{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.header-avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background: var(--ocean-deep);
+  color: var(--white);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family: var(--font-display);
+  font-weight:700;
+  font-size: var(--text-sm);
+  flex-shrink:0;
+}
+.header-identity-text strong{
+  display:block;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  line-height:1.2;
+}
+.header-identity-text span{
+  display:block;
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+.notif-bell{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  border:1.5px solid #e7edf1;
+  background: var(--white);
+  font-size:1.1rem;
+  color: var(--ocean-deep);
+  transition: background .15s ease;
+}
+.notif-bell:hover{ background: var(--sand); }
+.notif-bell .notif-count{
+  position:absolute;
+  top:-4px; right:-4px;
+  background:#ef4444;
+  color: var(--white);
+  font-size:10px;
+  font-weight:800;
+  min-width:17px;
+  height:17px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 4px;
+  border:2px solid var(--white);
+}
+
+/* Dropdown de vista previa de notificaciones (envuelve la campanita
+   en un <details>, nativo y accesible por teclado sin JS extra). */
+.notif-dropdown{
+  position:relative;
+  display:inline-block;
+}
+.notif-dropdown > summary{
+  list-style:none;
+  cursor:pointer;
+}
+.notif-dropdown > summary::-webkit-details-marker{ display:none; }
+.notif-dropdown-panel{
+  position:absolute;
+  top:calc(100% + 10px);
+  right:0;
+  width:300px;
+  max-width:90vw;
+  background: var(--white);
+  border:1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  z-index:40;
+  overflow:hidden;
+}
+.notif-dropdown-lista{
+  list-style:none;
+  margin:0;
+  padding:0;
+  max-height:260px;
+  overflow-y:auto;
+}
+.notif-dropdown-lista li{
+  padding:12px 14px;
+  border-bottom:1px solid #eef1f4;
+  font-size: var(--text-sm);
+}
+.notif-dropdown-lista li:last-child{ border-bottom:none; }
+.notif-dropdown-lista li p{ margin:0 0 4px; color: var(--ink); }
+.notif-dropdown-fecha{
+  font-size: var(--text-xs);
+  color: var(--text-secondary);
+}
+.notif-dropdown-ver-todas{
+  display:block;
+  text-align:center;
+  padding:12px;
+  font-weight:700;
+  font-size: var(--text-sm);
+  color: var(--ocean-mid);
+  text-decoration:none;
+  border-top:1px solid #eef1f4;
+}
+.notif-dropdown-ver-todas:hover{ background:#f4f7f9; }
+
+/* Chip "grado activo" dentro del header (Dashboard, cuando el
+   profesor tiene un único grado y por lo tanto un contexto fijo) */
+.header-grade-chip{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background: var(--sand);
+  color: var(--ocean-deep);
+  font-size: var(--text-xs);
+  font-weight:700;
+  padding: 7px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.header-grade-chip .icon{ width:14px; height:14px; }
+
+/* ============ CONTENIDO PRINCIPAL ============ */
+main{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px clamp(20px, 4vw, 40px) 64px;
+}
+main > h2, .panel-section-head h2{
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 1.15rem;
+  margin: 0 0 4px;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+main > h2:first-of-type{ margin-top: 0; }
+main > h2 .icon, .panel-section-head h2 .icon{ color: var(--ocean-deep); width:20px; height:20px; }
+.panel-section{ margin: 30px 0; }
+.panel-section:first-child{ margin-top:0; }
+.panel-section-head{ margin-bottom: 16px; }
+.panel-section-sub{
+  margin:0;
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+}
+
+/* ============ CONTEXTO ACTUAL: MIGAS DE PAN + GRADO/CURSO ============
+   Barra única al inicio de <main> en todo el módulo Profesor:
+   a la izquierda la ruta de navegación (Dashboard → Grado → Módulo →
+   …), a la derecha el/los chip(s) de nivel+grado y curso vigentes.
+   Reemplaza el antiguo par disperso "eyebrow en el header" +
+   "breadcrumb dentro de main" por una sola fila ordenada. */
+.context-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px 16px;
+  padding-bottom:16px;
+  margin-bottom:24px;
+  border-bottom:1px solid #e7edf1;
+}
+.context-bar .breadcrumbs{ margin-bottom:0; }
+.context-tags{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+/* ============ TARJETA DE PERFIL ============ */
+.profile-card{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  box-shadow: var(--shadow-sm);
+}
+.profile-card h2{
+  font-family: var(--font-display);
+  color: var(--ocean-deep);
+  font-size: 1.1rem;
+  margin: 0 0 14px;
+}
+.profile-card p{
+  margin: 0 0 8px;
+  font-size: var(--text-base);
+  color: var(--ink);
+}
+.profile-card p:last-child{ margin-bottom: 0; }
+.profile-card strong{ color: var(--text-secondary); font-weight: 600; margin-right: 4px; }
+
+/* ============ GRILLA DE ACCESOS (admin / subdirector) ============ */
+.cards{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+/* ============ GRADOS ASIGNADOS (Dashboard Profesor) ============
+   Contenedor propio (no reutiliza .cards) para que el número de
+   columnas se adapte solo a la cantidad real de grados del
+   profesor (1, 2, 3, 4 o 5), sin dejar columnas vacías cuando hay
+   menos de 3 tarjetas ni afectar la grilla fija de .cards que usan
+   otras pantallas (admin/subdirector, módulos de grado.php, etc.). */
+.cards-grados{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+.card{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  padding: 22px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .15s ease, box-shadow .15s ease;
+  display:flex;
+  flex-direction:column;
+}
+.card:hover{ transform: translateY(-2px); box-shadow: var(--shadow); }
+.card.card-alerta-inactivo{
+  border-color: #fcd9a8;
+  border-left: 4px solid #d97706;
+}
+.texto-alerta-inactivo{
+  color: #b45309 !important;
+  font-weight:700;
+}
+.card h3{
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 1.05rem;
+  margin: 0 0 8px;
+}
+.card p{
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+.card-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin: 0 0 14px;
+}
+.card-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  background: var(--sand);
+  color: var(--ocean-deep);
+  font-size: 11px;
+  font-weight:700;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+.card-tag .icon{ width:12px; height:12px; }
+.card-foot{
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding-top: 12px;
+  border-top: 1px solid #f0f4f8;
+}
+.card-foot .placeholder-text{ margin:0; font-size:12px; }
+.card a{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  color: var(--ocean-deep);
+  font-weight: 700;
+  font-size: var(--text-sm);
+}
+.card a::after{ content: "→"; transition: transform .15s ease; }
+.card a:hover::after{ transform: translateX(3px); }
+
+/* ============ ACCESOS RÁPIDOS (Dashboard Profesor, 1 solo grado) ============
+   Fila compacta de accesos directos a PCA/Unidades/Sesiones/Documentos,
+   más liviana que .cards-grados para no repetir el mismo patrón de
+   tarjeta grande y evitar "exceso de tarjetas" en el Dashboard. */
+.quickaccess-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+}
+.quickaccess-card{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-sm);
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+}
+.quickaccess-card:hover{ transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--ocean-mid); }
+.quickaccess-icon{
+  width:40px;
+  height:40px;
+  border-radius: var(--radius-sm);
+  background: var(--sand);
+  color: var(--ocean-mid);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-shrink:0;
+}
+.quickaccess-icon .icon{ width:19px; height:19px; }
+.quickaccess-text strong{
+  display:block;
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+.quickaccess-text span{
+  display:block;
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ============ TRABAJOS (panel del profesor) ============ */
+.trabajos-container{
+  display:grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+.trabajo-card{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-left: 4px solid var(--ocean-mid);
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  box-shadow: var(--shadow-sm);
+}
+.trabajo-card h3{
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 1.02rem;
+  margin: 0 0 10px;
+}
+.trabajo-card p{
+  margin: 0 0 8px;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  line-height: 1.5;
+}
+.trabajo-card p:last-of-type{ margin-bottom: 10px; }
+.trabajo-card strong{ color: var(--text-secondary); font-weight: 600; }
+.trabajo-card > strong{
+  display:inline-flex;
+  align-items:center;
+  gap: 6px;
+  background: var(--sand);
+  color: var(--ocean-deep);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+/* Estado vacío ("No tienes trabajos registrados.") */
+main > section > p:only-child{
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ============ TABLA DE DATOS (p.ej. Gestionar usuarios) ============ */
+.table-wrap{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow-x: auto;
+}
+.data-table{
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-sm);
+}
+.data-table th{
+  text-align:left;
+  background: var(--sand);
+  color: var(--ink);
+  font-weight: 700;
+  padding: 12px 16px;
+  white-space: nowrap;
+  border-bottom: 2px solid var(--sun);
+}
+.data-table td{
+  padding: 12px 16px;
+  border-bottom: 1px solid #e7edf1;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.data-table tr:last-child td{ border-bottom: none; }
+/* Variante: permite que el texto largo baje de línea en vez de forzar scroll horizontal */
+.data-table-wrap td, .data-table-wrap th{ white-space: normal; }
+.data-table tr:hover td{ background: var(--sand); }
+
+/* Agrupacion por profesor en tablas de reporte (rowspan): separa
+   visualmente cada bloque de profesor cuando tiene varios grados,
+   en vez de repetir su nombre en cada fila. */
+.data-table tr.reportes-profesor-inicio td{
+  border-top: 2px solid var(--sun);
+}
+.data-table tr.reportes-profesor-inicio:first-child td{
+  border-top: none;
+}
+.reportes-profesor-celda{
+  vertical-align: top;
+  white-space: normal;
+}
+.reportes-grados-count{
+  display: block;
+  margin-top: 4px;
+  font-size: var(--text-xs, 12px);
+  font-weight: 600;
+  color: var(--muted, #6b7280);
+}
+
+.role-badge{
+  display:inline-block;
+  background: var(--sand);
+  color: var(--ocean-deep);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+.status-badge{
+  display:inline-block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+}
+.status-activo{ background: #dcfce7; color: #15803d; }
+.status-inactivo{ background: #fee2e2; color: #b91c1c; }
+.status-neutro{ background: #e2e8f0; color: #475569; }
+.status-positivo{ background: #dcfce7; color: #15803d; }
+.status-negativo{ background: #fee2e2; color: #b91c1c; }
+
+/* ============ BOLETA DE NOTAS DEL PADRE — filas compactas ============
+   Reemplaza la tabla ancha de padre/notas.php por un listado en
+   base a las mismas variables/colores de .table-wrap y .data-table
+   (mismo look), pero que no depende de <table> para poder apilarse
+   en celular sin scroll horizontal. Las competencias van en un
+   <details> que no ocupa espacio si está cerrado (por defecto). */
+.curso-notas-list{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.curso-notas-list-head{
+  display: grid;
+  grid-template-columns: 1fr 200px 160px;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--sand);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  border-bottom: 2px solid var(--sun);
+}
+.curso-nota-row{ border-bottom: 1px solid #e7edf1; }
+.curso-nota-row:last-child{ border-bottom: none; }
+.curso-nota-row:hover{ background: var(--sand); }
+.curso-nota-main{
+  display: grid;
+  grid-template-columns: 1fr 200px 160px;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: var(--text-sm);
+  color: var(--ink);
+}
+.curso-nota-nombre{ font-weight: 600; }
+.curso-nota-detalle{ padding: 0 16px 12px 16px; }
+.curso-nota-detalle summary{
+  cursor: pointer;
+  font-size: var(--text-sm);
+  color: var(--ocean-deep);
+  font-weight: 600;
+  list-style: none;
+}
+.curso-nota-detalle summary::-webkit-details-marker{ display: none; }
+.curso-nota-detalle summary::before{ content: "▶ "; font-size: .7em; }
+.curso-nota-detalle[open] summary::before{ content: "▼ "; }
+.curso-nota-detalle[open] summary{ margin-bottom: 8px; }
+.curso-competencia-fila{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e7edf1;
+}
+.curso-competencia-fila:last-child{ border-bottom: none; }
+
+@media (max-width: 640px){
+  .curso-notas-list-head{ display: none; }
+  .curso-nota-main{
+    grid-template-columns: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    row-gap: 6px;
+  }
+  .curso-nota-nombre{ flex: 1 1 auto; min-width: 0; }
+  .curso-nota-fecha{
+    order: 3;
+    flex-basis: 100%;
+    font-size: var(--text-xs);
+    color: var(--text-secondary);
+  }
+}
+
+/* ============ LISTA DE PROFESORES (admin/profesores.php) ============
+   Reemplaza la tabla ancha de 6 columnas (Nombre, Correo,
+   Especialidad, Aulas asignadas, Tutoría, Acciones) por tarjetas:
+   antes había que bajar hasta la última fila y recién ahí mover la
+   barra de scroll horizontal para ver Tutoría/Acciones, y de paso se
+   perdía de vista A QUIÉN correspondía la fila. En tarjeta, todo el
+   profesor queda junto, sin scroll horizontal. */
+.profesor-list{ display: flex; flex-direction: column; gap: 12px; }
+.profesor-card{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 16px;
+}
+.profesor-card-head{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  padding-bottom: 12px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #e7edf1;
+}
+.profesor-card-id{ flex: 1 1 220px; min-width: 0; }
+.profesor-card-nombre{ display: block; font-weight: 700; color: var(--ink); }
+.profesor-card-correo{ display: block; font-size: var(--text-sm); }
+.profesor-card-head .row-actions{ margin-left: auto; }
+.profesor-card-body{ display: flex; flex-direction: column; gap: 14px; }
+.profesor-card-section-label{
+  display: block;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+}
+
+@media (max-width: 640px){
+  .profesor-card-head .row-actions{ margin-left: 0; flex-basis: 100%; }
+}
+
+/* ============ LISTA DE FILAS RESPONSIVE (genérico) ============
+   Para tablas con muchas columnas de solo texto/badges, sin
+   formularios pesados por celda (a diferencia de .profesor-card):
+   Usuarios, Auditoría, Importaciones de notas, etc. En PC se ve
+   como una tabla normal (CSS Grid, columnas alineadas con su
+   cabecera). En celular cada fila se apila como tarjeta — sin
+   scroll horizontal y sin perder de vista a qué fila corresponde
+   cada dato, porque cada celda muestra su etiqueta al lado.
+   Cada página define su propio grid-template-columns inline (mismo
+   valor en la cabecera .list-rows-head y en cada .list-row) según
+   cuántas columnas tenga. */
+.list-rows{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.list-rows-head{
+  display: grid;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--sand);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: var(--text-sm);
+  border-bottom: 2px solid var(--sun);
+}
+.list-row{
+  display: grid;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 16px;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  border-bottom: 1px solid #e7edf1;
+}
+.list-row:last-child{ border-bottom: none; }
+.list-row:hover{ background: var(--sand); }
+.list-cell-label{ display: none; }
+
+@media (max-width: 640px){
+  .list-rows-head{ display: none; }
+  .list-row{
+    grid-template-columns: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+  .list-cell-label{
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    margin-right: 6px;
+  }
+}
+
+
+.empty-state{
+  background: var(--white);
+  border: 1px dashed #c9d9ec;
+  border-radius: var(--radius-md);
+  padding: 48px 24px;
+  text-align:center;
+  max-width: 480px;
+  margin: 24px auto 0;
+}
+.empty-state-icon{ display:flex; align-items:center; justify-content:center; margin: 0 auto 14px; width:52px; height:52px; border-radius:50%; background: var(--sand); color: var(--ocean-mid); }
+.empty-state-icon .icon{ width:24px; height:24px; }
+.empty-state h2{
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 1.15rem;
+  margin: 0 0 10px;
+}
+.empty-state p{
+  color: var(--text-secondary);
+  font-size: var(--text-sm);
+  margin: 0 0 20px;
+  line-height: 1.55;
+}
+.empty-state .btn-secondary{
+  display:inline-flex;
+  border: 1.5px solid var(--ocean-deep);
+  color: var(--ocean-deep);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  padding: 9px 18px;
+  border-radius: 999px;
+  transition: background .2s ease, color .2s ease;
+}
+.empty-state .btn-secondary:hover{ background: var(--ocean-deep); color: var(--white); }
+
+/* ============ FORMULARIOS (Cursos, Documentos, Comunicados, etc.) ============ */
+.panel-form{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  padding: 22px 24px;
+  margin-bottom: 24px;
+  display:flex;
+  flex-direction:column;
+  gap: 16px;
+}
+.panel-form h3{
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 1rem;
+  margin: 0;
+}
+.panel-form .field{
+  display:flex;
+  flex-direction:column;
+  gap: 6px;
+}
+.panel-form label{
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+.panel-form input,
+.panel-form select,
+.panel-form textarea{
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.panel-form textarea{ resize: vertical; min-height: 90px; }
+.panel-form input:focus,
+.panel-form select:focus,
+.panel-form textarea:focus{
+  border-color: var(--ocean-mid);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+.panel-form .form-row{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.btn-submit{
+  align-self: flex-start;
+  background: var(--ocean-deep);
+  color: var(--white);
+  border: none;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  padding: 11px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .2s ease, transform .15s ease;
+}
+.btn-submit:hover{ background: var(--ocean-mid); transform: translateY(-2px); }
+
+/* Mensajes de éxito/error tras guardar */
+.panel-alert{
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.panel-alert .icon{ margin-top:1px; flex-shrink:0; }
+.panel-alert-success{ background:#dcfce7; color:#15803d; border:1px solid #bbf7d0; }
+.panel-alert-error{ background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; }
+
+/* Botones de acción pequeños dentro de tablas (aprobar/rechazar) */
+.row-actions{ display:flex; gap: 8px; flex-wrap: wrap; }
+.row-actions form{ display:inline-block; margin:0; }
+.btn-mini{
+  display:inline-flex;
+  align-items:center;
+  border: none;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity .15s ease;
+}
+.btn-mini:hover{ opacity: .85; }
+.btn-mini-approve{ background:#dcfce7; color:#15803d; }
+.btn-mini-reject{ background:#fee2e2; color:#b91c1c; }
+
+.status-pendiente{ background:#fef9c3; color:#854d0e; }
+.status-aprobada{ background:#dcfce7; color:#15803d; }
+.status-rechazada{ background:#fee2e2; color:#b91c1c; }
+
+/* Estados del flujo de envío/revisión de trabajos (Profesor <-> Subdirector) */
+.status-enviado{ background:#e0edff; color:#1d4ed8; }
+.status-en_revision{ background:#fef9c3; color:#854d0e; }
+.status-requiere_cambios{ background:#fee2e2; color:#b91c1c; }
+.status-corregido{ background:#dbeafe; color:#1e40af; }
+.status-aprobado{ background:#dcfce7; color:#15803d; }
+
+/* Módulo Padre: tipo de comportamiento (comportamiento.php + adelanto
+   del Dashboard) y calificación literal (boleta de Primaria, notas.php).
+   Reutilizan la misma base .status-badge, solo colores nuevos. */
+.status-positivo{ background:#dcfce7; color:#15803d; }
+.status-negativo{ background:#fee2e2; color:#b91c1c; }
+.status-neutro{ background:#e2e8f0; color:#475569; }
+.status-nota-ad{ background:#dcfce7; color:#15803d; }
+.status-nota-a{ background:#e0edff; color:#1d4ed8; }
+.status-nota-b{ background:#fef9c3; color:#854d0e; }
+.status-nota-c{ background:#fee2e2; color:#b91c1c; }
+
+/* Filtro simple de una sola línea (selector de periodo en
+   padre/notas.php) — un <select> que se auto-envía al cambiar. */
+.filtro-inline{ display:flex; align-items:center; gap:8px; margin-top:10px; }
+.filtro-inline label{ font-size: var(--text-sm); font-weight:600; color: var(--text-secondary); }
+.filtro-inline select{ padding:6px 10px; border-radius:8px; border:1px solid var(--border-color, #d9dee3); font-size: var(--text-sm); background: var(--white); }
+
+/* Tarjeta de notificación no leída */
+.notif-item{ padding:10px 14px; border-left:3px solid var(--ocean-mid); background:#f7faff; border-radius: var(--radius-sm); margin-bottom:8px; font-size: var(--text-sm); }
+.notif-item.leida{ border-left-color:#d7dee6; background:transparent; opacity:.75; }
+.notif-item a{ font-weight:700; }
+
+/* Estadísticas (Reportes) */
+.stats-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.stat-card{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-left: 4px solid var(--ocean-mid);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+.stat-card.stat-card-alerta{
+  border-left-color: #d97706;
+}
+.stat-card .stat-value{
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--ocean-deep);
+  display:block;
+}
+.stat-card .stat-label{
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+}
+
+/* Actividad reciente (feed de últimos cambios en materiales) */
+.actividad-reciente-lista{
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  gap: 8px;
+}
+.actividad-reciente-item{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap: 10px;
+  padding: 10px 14px;
+  background: #f7faff;
+  border-left: 3px solid var(--ocean-mid);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+}
+.actividad-reciente-modulo{
+  font-weight:800;
+  color: var(--ocean-deep);
+  text-transform: uppercase;
+  font-size: 11px;
+  letter-spacing:.03em;
+  flex-shrink:0;
+}
+.actividad-reciente-detalle{
+  flex: 1 1 260px;
+  color: var(--ink);
+}
+.actividad-reciente-fecha{
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  white-space: nowrap;
+}
+
+/* ============ ACCESIBILIDAD: FOCO VISIBLE ============ */
+a:focus-visible,
+button:focus-visible,
+.nav-link:focus-visible,
+.btn-mini:focus-visible,
+.btn-submit:focus-visible,
+.card:focus-within{
+  outline: 3px solid var(--sun);
+  outline-offset: 2px;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px){
+  .cards{ grid-template-columns: 1fr 1fr; }
+  .trabajos-container{ grid-template-columns: 1fr; }
+  .stats-grid{ grid-template-columns: 1fr 1fr; }
+  /* Tablet: los formularios de 2 columnas quedan muy apretados junto al sidebar */
+  .panel-form .form-row{ grid-template-columns: 1fr; }
+}
+@media (max-width: 640px){
+  .cards{ grid-template-columns: 1fr; }
+  .app-content > header{ flex-direction: column; align-items: flex-start; }
+  .stats-grid{ grid-template-columns: 1fr; }
+  main{ padding-left: 16px; padding-right: 16px; }
+  .row-actions{ gap: 6px; }
+  .breadcrumbs{ font-size: var(--text-xs); gap: 6px; }
+  .badge-nivel-grado, .badge-curso-actual{ font-size: 10px; padding: 3px 10px; }
+  .context-bar{ justify-content: flex-start; }
+  .quickaccess-grid{ grid-template-columns: 1fr; }
+  .header-identity-text span{ display:none; }
+}
+
+/* ============ MIGAS DE PAN (todo el módulo Profesor) ============ */
+.breadcrumbs{
+  display:flex;
+  align-items:center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+.breadcrumbs a{ color: var(--ocean-deep); font-weight: 600; }
+.breadcrumbs a:hover{ text-decoration: underline; }
+.breadcrumbs span{ color: var(--text-secondary); }
+.breadcrumbs .crumb-current{ color: var(--ink); font-weight: 700; }
+
+/* ============ INDICADOR DE NIVEL/GRADO Y CURSO ACTUAL ============
+   Chips informativos colocados dentro de .context-bar (a la derecha
+   de las migas de pan) en cada página del módulo Profesor que ya
+   tiene un grado en contexto, para que siempre sea evidente en qué
+   nivel/grado (y curso, cuando aplica) se está trabajando. */
+.badge-nivel-grado{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background: var(--sand);
+  color: var(--ocean-deep);
+  font-size: var(--text-xs);
+  font-weight:700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge-curso-actual{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background: #eef2ff;
+  color: #4338ca;
+  font-size: var(--text-xs);
+  font-weight:700;
+  padding: 4px 12px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge-nivel-grado .icon, .badge-curso-actual .icon{ width:13px; height:13px; }
+
+/* ============ ESTADO DE CARGA EN BOTONES (subida de archivos) ============
+   Solo visual/UX: no cambia el envío del formulario (sigue siendo un
+   POST normal). Ver js/panel.js. */
+.btn-mini.is-loading,
+.btn-submit.is-loading{
+  opacity:.65;
+  cursor: wait;
+}
+
+
+
+/* ============ PROGRESO PCA + TOAST + BUSCADOR + SELECTOR ============ */
+
+/* Barra de avance del PCA dentro de la tarjeta de grado (Dashboard) */
+.card-progress{ margin: 6px 0 0; }
+.card-progress-head{
+  display:flex;
+  justify-content:space-between;
+  font-size: 12px;
+  font-weight:700;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+.progress-bar{
+  height: 6px;
+  border-radius: 999px;
+  background: #e7edf1;
+  overflow:hidden;
+}
+.progress-bar-fill{
+  height:100%;
+  background: var(--ocean-mid);
+  border-radius: 999px;
+  transition: width .3s ease;
+}
+
+/* Semáforo de avance (PCA / Unidades / Sesiones): mismo criterio de
+   color en el Dashboard del Profesor y en el resumen del Subdirector
+   — ver materiales_color_progreso() en backend/config/materiales_cursos.php */
+.progress-bar-fill.is-green{ background: #16a34a; }
+.progress-bar-fill.is-amber{ background: #d97706; }
+.progress-bar-fill.is-red{ background: #dc2626; }
+
+/* Comparativa entre grados (solo visible con 2+ grados asignados).
+   Misma paleta semáforo que las tarjetas de grado (materiales_color_progreso). */
+.comparativa-grados{
+  background: var(--surface, #fff);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+.comparativa-grados-resumen{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 6px 20px;
+  font-size: var(--text-sm);
+  font-weight:700;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eef1f4;
+}
+.comparativa-grado-fila{
+  display:grid;
+  grid-template-columns: minmax(110px, 1.4fr) repeat(3, minmax(60px, 1fr));
+  align-items:center;
+  gap: 12px;
+  padding: 7px 0;
+  text-decoration:none;
+  color: inherit;
+  border-radius: 6px;
+}
+a.comparativa-grado-fila:hover{
+  background: #f4f7f9;
+}
+.comparativa-grados-leyenda{
+  font-size: 11px;
+  font-weight:700;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  color: var(--text-secondary);
+  padding: 0 0 4px;
+}
+.comparativa-grados-leyenda span{ text-align:center; }
+.comparativa-grados-leyenda span:first-child{ text-align:left; }
+.comparativa-grado-nombre{
+  font-size: var(--text-sm);
+  font-weight:700;
+  white-space: nowrap;
+  overflow:hidden;
+  text-overflow: ellipsis;
+}
+.comparativa-mini-barra{
+  display:block;
+  height: 8px;
+  border-radius: 999px;
+  background: #e7edf1;
+  overflow:hidden;
+}
+.comparativa-mini-barra-fill{
+  display:block;
+  height:100%;
+  border-radius: 999px;
+  background: var(--ocean-mid);
+  transition: width .3s ease;
+}
+.comparativa-mini-barra-fill.is-green{ background:#16a34a; }
+.comparativa-mini-barra-fill.is-amber{ background:#d97706; }
+.comparativa-mini-barra-fill.is-red{ background:#dc2626; }
+
+@media (max-width: 560px){
+  .comparativa-grado-fila{
+    grid-template-columns: minmax(80px, 1fr) repeat(3, minmax(40px, 1fr));
+    gap: 8px;
+  }
+  .comparativa-grados-leyenda span{ font-size: 10px; }
+}
+
+/* Aviso destacado en "Resumen" (p.ej. envíos que requieren cambios) */
+.resumen-alert{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#fee2e2;
+  border:1px solid #fecaca;
+  color:#b91c1c;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight:700;
+  margin-bottom: 16px;
+}
+.resumen-alert .icon{ flex-shrink:0; }
+.resumen-alert:hover{ text-decoration: underline; }
+.resumen-alert .obs-text{ font-weight:400; }
+
+/* Variante informativa del mismo aviso — cierre de bimestre cuando
+   todavía faltan más de 7 días (no es urgente, solo un recordatorio) */
+.resumen-alert.is-info{
+  background:#fef3c7;
+  border-color:#fde68a;
+  color:#92400e;
+}
+
+/* Buscador simple (Mis alumnos / Mis trabajos) */
+.panel-search{ margin-bottom: 14px; }
+.panel-search input{
+  width:100%;
+  max-width: 360px;
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 9px 14px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+  outline:none;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.panel-search input:focus{
+  border-color: var(--ocean-mid);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.12);
+}
+
+/* Selector de grado en Accesos rápidos (2+ grados) */
+.quickaccess-selector{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom: 14px;
+}
+.quickaccess-selector label{
+  font-size: var(--text-sm);
+  font-weight:700;
+  color: var(--text-secondary);
+}
+.quickaccess-selector select{
+  border: 1px solid #cbd5e1;
+  border-radius: var(--radius-sm);
+  padding: 8px 12px;
+  font-size: var(--text-sm);
+  font-family: var(--font-body);
+  color: var(--ink);
+  background: var(--white);
+}
+
+/* ============ TOAST DE CONFIRMACIÓN (guardado exitoso) ============
+   Solo los mensajes de ÉXITO flotan como aviso y se autoocultan; los
+   de error quedan fijos en su lugar para que el profesor pueda leer
+   con calma qué falló y corregirlo. Ver js/panel.js. */
+.panel-alert-success{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  left: auto;
+  z-index: 90;
+  max-width: 360px;
+  box-shadow: var(--shadow);
+  animation: toast-in .25s ease;
+}
+.panel-alert-success.is-hiding{
+  opacity:0;
+  transform: translateY(-10px);
+  transition: opacity .3s ease, transform .3s ease;
+}
+@keyframes toast-in{
+  from{ opacity:0; transform: translateY(-10px); }
+  to{ opacity:1; transform:none; }
+}
+@media (max-width: 640px){
+  .panel-alert-success{ left:16px; right:16px; top:16px; max-width:none; }
+}
+
+/* ============ TARJETAS DE MATERIAL (PCA / Unidad > Semana > Curso) ============ */
+.materiales-grid{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.material-card{
+  background: var(--white);
+  border: 1px solid #e7edf1;
+  border-left: 4px solid var(--ocean-mid);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+  display:flex;
+  flex-direction:column;
+  gap: 12px;
+  scroll-margin-top: 90px;
+  transition: box-shadow .2s ease, border-color .2s ease;
+}
+/* Curso enfocado vía ?curso= en la URL (ver "función pequeña":
+   breadcrumb + contexto actual). Solo resalta visualmente la
+   tarjeta correspondiente; no cambia qué cursos se listan. */
+.material-card.is-focused{
+  border-left-color: #4338ca;
+  box-shadow: 0 0 0 3px rgba(67,56,202,.15), var(--shadow);
+}
+.material-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap: 10px;
+}
+.material-card-head h3{
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size: 1rem;
+  margin: 0;
+}
+.material-filename{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.material-filename .icon{ flex-shrink:0; width:14px; height:14px; }
+.material-upload-form{
+  display:flex;
+  align-items:center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px dashed #e7edf1;
+}
+.material-upload-form input[type="file"]{
+  flex: 1;
+  min-width: 0;
+  font-size: var(--text-xs);
+  color: var(--ink);
+}
+
+@media (max-width: 900px){
+  .materiales-grid{ grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px){
+  .materiales-grid{ grid-template-columns: 1fr; }
+  .material-upload-form{ flex-direction: column; align-items: stretch; }
+}
+
+/* ==================================================
+   MEJORAS DE UX GENERAL DEL DASHBOARD (jerarquía, leyenda,
+   primeros pasos, menú de reportes)
+================================================== */
+
+/* Secciones "de menú" (Tutoría, Accesos rápidos, Mis módulos):
+   mismo contenido de siempre, un poco más discretas que las
+   secciones de datos/alertas para que estas últimas destaquen. */
+.panel-section-compact{
+  background: #fafbfc;
+  border: 1px solid #eef1f4;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  box-shadow:none;
+}
+.panel-section-compact .panel-section-head h2{
+  font-size: 1.05rem;
+}
+
+/* Leyenda de colores + términos (details/summary, plegada por defecto) */
+.dashboard-leyenda{
+  margin: 4px 0 22px;
+  border: 1px solid #e2e8f0;
+  border-radius: var(--radius-sm);
+  background:#fafcff;
+}
+.dashboard-leyenda summary{
+  cursor:pointer;
+  padding: 10px 14px;
+  font-size: var(--text-sm);
+  font-weight:700;
+  color: var(--ocean-deep);
+  list-style:none;
+}
+.dashboard-leyenda summary::-webkit-details-marker{ display:none; }
+.dashboard-leyenda summary::before{ content:"ⓘ "; }
+.dashboard-leyenda-body{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  padding: 4px 16px 16px;
+  font-size: var(--text-sm);
+}
+.dashboard-leyenda-body ul{ list-style:none; margin:6px 0 0; padding:0; }
+.dashboard-leyenda-body li{ margin-bottom:6px; color: var(--text-secondary); }
+.leyenda-punto{
+  display:inline-block;
+  width:10px; height:10px;
+  border-radius:50%;
+  margin-right:6px;
+}
+.leyenda-punto.is-green{ background:#16a34a; }
+.leyenda-punto.is-amber{ background:#d97706; }
+.leyenda-punto.is-red{ background:#dc2626; }
+
+/* Primeros pasos (checklist de bienvenida cuando no hay nada subido) */
+.primeros-pasos{
+  background: linear-gradient(135deg, #f0f9ff, #f7faff);
+  border: 1px solid #bfdbfe;
+  border-radius: var(--radius-md);
+  padding: 20px 22px;
+  margin-bottom: 22px;
+}
+.primeros-pasos h3{
+  margin:0 0 6px;
+  font-family: var(--font-display);
+  color: var(--ocean-deep);
+}
+.primeros-pasos p{ margin:0 0 10px; color: var(--text-secondary); font-size: var(--text-sm); }
+.primeros-pasos ol{ margin:0; padding-left:20px; }
+.primeros-pasos li{ margin-bottom:6px; font-size: var(--text-sm); }
+.primeros-pasos a{ font-weight:700; color: var(--ocean-mid); }
+
+/* Menú "Reportes" en el header (agrupa los 2 PDF) */
+.reportes-dropdown{ position:relative; display:inline-block; }
+.reportes-dropdown > summary{
+  list-style:none;
+  cursor:pointer;
+}
+.reportes-dropdown > summary::-webkit-details-marker{ display:none; }
+.reportes-dropdown-panel{
+  position:absolute;
+  top:calc(100% + 10px);
+  right:0;
+  width:240px;
+  background: var(--white);
+  border:1px solid #e2e8f0;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow);
+  z-index:40;
+  overflow:hidden;
+}
+.reportes-dropdown-panel a{
+  display:block;
+  padding:12px 14px;
+  text-decoration:none;
+  color: var(--ink);
+  font-weight:700;
+  font-size: var(--text-sm);
+  border-bottom:1px solid #eef1f4;
+}
+.reportes-dropdown-panel a:last-child{ border-bottom:none; }
+.reportes-dropdown-panel a span{
+  display:block;
+  font-weight:400;
+  color: var(--text-secondary);
+  font-size: var(--text-xs);
+  margin-top:2px;
+}
+.reportes-dropdown-panel a:hover{ background:#f4f7f9; }
+
+/* Los enlaces dentro de los paneles desplegables del header no deben heredar
+   el estilo de botón-píldora de ".app-content > header a" (borde, nowrap). */
+.app-content > header .reportes-dropdown-panel a,
+.app-content > header .notif-dropdown-panel a{
+  display:block;
+  border:none;
+  border-bottom:1px solid #eef1f4;
+  border-radius:0;
+  padding:12px 14px;
+  white-space:normal;
+  color: var(--ink);
+}
+.app-content > header .reportes-dropdown-panel a:last-child,
+.app-content > header .notif-dropdown-panel a:last-child{ border-bottom:none; }
+.app-content > header .reportes-dropdown-panel a:hover,
+.app-content > header .notif-dropdown-panel a:hover{ background:#f4f7f9; color: var(--ink); }
+.reportes-dropdown-panel{ width:min(280px, 90vw); }
+
+/* Subtítulo de grupo dentro de "Panel de Administración Institucional"
+   (separa Operativo de Estructura institucional, mismas stat-card). */
+.stats-grupo-titulo{
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing:.04em;
+  color: var(--text-secondary);
+  margin: 22px 0 10px;
+}
+
+/* ============================================================
+   CALENDARIO ACADÉMICO INSTITUCIONAL
+   (admin/calendario.php, subdirector/calendario.php,
+   profesor/calendario.php — mismas clases en los 3).
+   ============================================================ */
+:root{
+  --cal-examen: var(--coral);
+  --cal-reunion: var(--ocean-mid);
+  --cal-feriado: #16A34A;
+  --cal-actividad: #7C3AED;
+  --cal-entrega: #D97706;
+  --cal-otro: var(--teal);
+}
+
+.cal-toolbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+.cal-toolbar h2{
+  margin:0;
+  font-family: var(--font-display);
+  color: var(--ink);
+  font-size:1.2rem;
+  text-transform:capitalize;
+}
+.cal-nav{ display:flex; align-items:center; gap:8px; }
+.cal-nav-btn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;
+  height:34px;
+  border-radius:50%;
+  background: var(--white);
+  border:1px solid #dbe4ee;
+  color: var(--ocean-deep);
+  transition: background .15s ease;
+}
+.cal-nav-btn:hover{ background: var(--sand); }
+.cal-nav-btn.cal-next .icon{ transform: rotate(180deg); }
+.cal-today-btn{
+  display:flex;
+  align-items:center;
+  border-radius:999px;
+  padding:0 16px;
+  height:34px;
+  font-size:var(--text-sm);
+  font-weight:700;
+  background: var(--white);
+  border:1px solid #dbe4ee;
+  color: var(--ocean-deep);
+  transition: background .15s ease;
+}
+.cal-today-btn:hover{ background: var(--sand); }
+
+.cal-legend{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:16px; }
+.cal-legend-pill{
+  display:inline-flex;
+  align-items:center;
+  font-size:11px;
+  font-weight:700;
+  color: var(--white);
+  padding:4px 11px;
+  border-radius:999px;
+}
+
+.cal-grid{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap:6px;
+  background: var(--white);
+  border:1px solid #e7edf1;
+  border-radius: var(--radius-md);
+  padding:14px;
+  box-shadow: var(--shadow-sm);
+  margin-bottom:24px;
+}
+.cal-weekday{
+  text-align:center;
+  font-size:var(--text-xs);
+  font-weight:700;
+  text-transform:uppercase;
+  color: var(--text-secondary);
+  padding-bottom:6px;
+  letter-spacing:.4px;
+}
+.cal-day{
+  min-height:96px;
+  border-radius: var(--radius-sm);
+  border:1px solid #eef2f6;
+  padding:6px;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  background: var(--sand);
+}
+.cal-day.is-empty{ background:transparent; border-color:transparent; }
+.cal-day.is-today{ border-color: var(--ocean-mid); box-shadow: 0 0 0 2px rgba(37,99,235,.15) inset; }
+.cal-day-num{ font-size:var(--text-xs); font-weight:700; color: var(--ink); }
+.cal-day.is-today .cal-day-num{ color: var(--ocean-deep); }
+.cal-day-events{ display:flex; flex-direction:column; gap:3px; overflow:hidden; }
+.cal-event{
+  display:block;
+  font-size:10.5px;
+  font-weight:700;
+  line-height:1.4;
+  padding:2px 6px;
+  border-radius:6px;
+  color:var(--white);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.cal-event-more{ font-size:10.5px; font-weight:700; color: var(--text-secondary); padding-left:2px; }
+
+.evt-examen{ background: var(--cal-examen); }
+.evt-reunion{ background: var(--cal-reunion); }
+.evt-feriado{ background: var(--cal-feriado); }
+.evt-actividad{ background: var(--cal-actividad); }
+.evt-entrega{ background: var(--cal-entrega); }
+.evt-otro{ background: var(--cal-otro); }
+
+.cal-agenda{ display:flex; flex-direction:column; gap:10px; }
+.cal-agenda-item{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  background: var(--white);
+  border:1px solid #e7edf1;
+  border-radius: var(--radius-sm);
+  padding:12px 14px;
+  box-shadow: var(--shadow-sm);
+}
+.cal-agenda-date{
+  flex-shrink:0;
+  width:54px;
+  text-align:center;
+  font-family: var(--font-display);
+  color: var(--ocean-deep);
+}
+.cal-agenda-date strong{ display:block; font-size:1.2rem; line-height:1; }
+.cal-agenda-date span{ display:block; font-size:10px; text-transform:uppercase; color: var(--text-secondary); font-weight:700; }
+.cal-agenda-body{ flex:1; min-width:0; }
+.cal-agenda-body h4{ margin:0 0 2px; font-size:var(--text-sm); color: var(--ink); }
+.cal-agenda-body p{ margin:0; font-size:var(--text-xs); color: var(--text-secondary); }
+.cal-agenda-meta{ display:flex; gap:8px; align-items:center; margin-top:8px; flex-wrap:wrap; }
+.cal-agenda-tipo{
+  display:inline-flex;
+  align-items:center;
+  font-size:10.5px;
+  font-weight:700;
+  color: var(--white);
+  padding:2px 9px;
+  border-radius:999px;
+}
+.cal-agenda-grado{
+  font-size:10.5px;
+  font-weight:700;
+  color: var(--ocean-deep);
+  background: var(--sun);
+  padding:2px 9px;
+  border-radius:999px;
+}
+.cal-agenda-actions{ margin-left:auto; flex-shrink:0; }
+
+@media (max-width: 900px){
+  .cal-day{ min-height:64px; }
+  .cal-event{ font-size:9.5px; padding:1px 4px; }
+  .cal-agenda-date{ width:44px; }
+}
+
+/* ============================================================
+   SUBDIRECCIÓN — Semáforo de cumplimiento (subdirector/reportes.php)
+   y Bitácora de observaciones por profesor (subdirector/bitacora.php).
+   ============================================================ */
+.semaforo-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap:12px;
+  margin-bottom:24px;
+}
+.semaforo-card{
+  background: var(--white);
+  border:1px solid #e7edf1;
+  border-radius: var(--radius-sm);
+  padding:14px 16px;
+  box-shadow: var(--shadow-sm);
+}
+.semaforo-card-head{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:6px;
+}
+.semaforo-card-head strong{ font-size:var(--text-sm); color: var(--ink); }
+.semaforo-card p{ margin:0; font-size:var(--text-xs); color: var(--text-secondary); }
+
+.bitacora-lista{ display:flex; flex-direction:column; gap:10px; margin-top:12px; }
+.bitacora-item{
+  background: var(--white);
+  border:1px solid #e7edf1;
+  border-radius: var(--radius-sm);
+  padding:12px 14px;
+  box-shadow: var(--shadow-sm);
+}
+.bitacora-item-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:6px;
+  flex-wrap:wrap;
+}
+.bitacora-item-head strong{ font-size:var(--text-sm); color: var(--ink); }
+.bitacora-item-head span{ font-size:var(--text-xs); color: var(--text-secondary); }
+.bitacora-item p{ margin:0; font-size:var(--text-sm); color: var(--ink); white-space:pre-wrap; }
+
+.lecturas-resumen{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:var(--text-xs);
+  font-weight:700;
+  color: var(--text-secondary);
+}
+.lecturas-detalle{
+  margin-top:8px;
+  padding-top:8px;
+  border-top:1px solid #eef2f6;
+  font-size:var(--text-xs);
+  color: var(--text-secondary);
+}
+.lecturas-detalle ul{ list-style:none; margin:6px 0 0; padding:0; display:flex; flex-direction:column; gap:3px; }

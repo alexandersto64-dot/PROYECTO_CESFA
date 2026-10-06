@@ -2,6 +2,17 @@
 
 session_start();
 
+// Se registra el cierre de sesión antes de vaciar la sesión (si se puede).
+if (isset($_SESSION["id_usuario"])) {
+    try {
+        require_once __DIR__ . "/../config/database.php";
+        require_once __DIR__ . "/../config/admin_seguimiento.php";
+        auditoria_evento($conexion, (int) $_SESSION["id_usuario"], "LOGOUT", "SESION", (int) $_SESSION["id_usuario"], "Cierre de sesión");
+    } catch (\Throwable $e) {
+        // cerrar sesión nunca debe fallar por la auditoría
+    }
+}
+
 
 // ==========================================
 // CERRAR TODAS LAS VARIABLES DE SESIÓN
@@ -41,6 +52,6 @@ session_destroy();
 // VOLVER AL LOGIN
 // ==========================================
 
-header("Location: ../../index.html");
+header("Location: ../../login.html");
 
 exit;

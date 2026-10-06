@@ -1,0 +1,2 @@
+# Solo uso interno (require desde PHP). Sin acceso por navegador.
+Require all denied

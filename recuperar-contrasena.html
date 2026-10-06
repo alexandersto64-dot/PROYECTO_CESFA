@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Recuperar contraseña · Intranet I.E.P. 88044 Abraham Valdelomar</title>
+
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="login-page">
+
+    <main class="login-container">
+
+        <div class="login-photo" aria-hidden="true"></div>
+
+        <section class="login-card">
+
+            <div class="logo-container">
+                <img
+                    src="img/brand/escudo.png"
+                    alt="Escudo de la institución educativa"
+                    class="logo"
+                >
+            </div>
+
+            <div class="login-header">
+                <span class="institution">I.E.P. 88044 Abraham Valdelomar</span>
+                <h1>Recuperar contraseña</h1>
+                <p>Ingresa tu correo y te enviaremos un enlace para elegir una nueva contraseña.</p>
+            </div>
+
+            <!-- Mensaje de error (backend/auth/recuperar_solicitud.php redirige con ?error=) -->
+            <p class="login-error" id="recuperarError" role="alert" hidden></p>
+
+            <!-- Mensaje de confirmación (?enviado=1) -->
+            <p class="login-success" id="recuperarExito" role="status" hidden>
+                Si el correo está registrado, te llegará un enlace en unos minutos. Revisa también tu bandeja de spam.
+            </p>
+
+            <form
+                action="backend/auth/recuperar_solicitud.php"
+                method="POST"
+                class="login-form"
+                id="recuperarForm"
+            >
+
+                <div class="form-group">
+
+                    <label for="correo">
+                        CORREO
+                    </label>
+
+                    <div class="input-container">
+                        <span class="input-icon">✉</span>
+
+                        <input
+                            type="email"
+                            id="correo"
+                            name="correo"
+                            placeholder="usuario@ie88044.edu.pe"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn-login"
+                    id="btnRecuperar"
+                >
+                    <span class="btn-login-label">Enviar enlace</span>
+                    <span class="arrow">→</span>
+                </button>
+
+            </form>
+
+            <a href="login.html" class="btn-login recovery-back">
+                <span>Volver al inicio de sesión</span>
+            </a>
+
+            <div class="login-footer">
+                <p>Sistema exclusivo para personal autorizado</p>
+                <span>© 2026 I.E.P. 88044 Abraham Valdelomar</span>
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+
+        // Mensajes enviados por backend/auth/recuperar_solicitud.php
+        // vía query string, mismo patrón que login.html.
+        (function mostrarMensajesSiExisten() {
+            const params = new URLSearchParams(window.location.search);
+            const error = params.get("error");
+            const enviado = params.get("enviado");
+
+            const errorBox = document.getElementById("recuperarError");
+            const exitoBox = document.getElementById("recuperarExito");
+
+            if (error && errorBox) {
+                errorBox.textContent = error;
+                errorBox.hidden = false;
+            }
+
+            if (enviado && exitoBox) {
+                exitoBox.hidden = false;
+            }
+        })();
+
+        (function estadoCargaRecuperar() {
+            const form = document.getElementById("recuperarForm");
+            const btn = document.getElementById("btnRecuperar");
+            if (!form || !btn) return;
+
+            form.addEventListener("submit", () => {
+                if (!form.checkValidity()) return;
+                btn.disabled = true;
+                btn.classList.add("is-loading");
+                const label = btn.querySelector(".btn-login-label");
+                if (label) label.textContent = "Enviando...";
+            });
+        })();
+
+    </script>
+
+<script src="js/cookies.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,9 @@
+<?php
+// Copia este archivo como database.local.php y pon tus datos reales.
+// Usa un usuario de MySQL propio (NO root) con permisos solo sobre colegio_ie88044.
+return [
+    "host"     => "localhost",
+    "dbname"   => "colegio_ie88044",
+    "username" => "ie88044_app",
+    "password" => "CAMBIA_ESTA_CLAVE_LARGA",
+];

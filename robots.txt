@@ -5,4 +5,13 @@
 User-agent: *
 Allow: /
 
+# Intranet y código interno: no deben aparecer en buscadores.
+# (Esto es solo una petición a los buscadores; la protección real es el login
+#  y el .htaccess. Además cada panel envía la cabecera X-Robots-Tag: noindex.)
+Disallow: /admin/
+Disallow: /subdirector/
+Disallow: /profesor/
+Disallow: /padre/
+Disallow: /backend/
+
 Sitemap: https://TU-DOMINIO-AQUI.pe/sitemap.xml

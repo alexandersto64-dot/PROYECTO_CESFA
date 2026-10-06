@@ -1,0 +1,76 @@
+/* ============================================================
+   AVISO DE COOKIES — I.E.P. 88044
+   Se carga automáticamente desde js/cookies.js
+============================================================ */
+.ck-banner {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 9999;
+  width: min(440px, calc(100vw - 32px));
+  background: #fff;
+  color: #16263B;
+  border: 1px solid #dbe5f1;
+  border-radius: 18px;
+  box-shadow: 0 18px 50px rgba(16, 40, 78, .22);
+  padding: 20px 22px;
+  font-family: 'Inter', system-ui, sans-serif;
+  animation: ck-entra .45s cubic-bezier(.2, .7, .2, 1) both;
+}
+.ck-banner[hidden] { display: none; }
+.ck-banner.ck-sale { animation: ck-sale .3s ease forwards; }
+
+.ck-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.ck-head svg { width: 22px; height: 22px; color: #2563EB; flex: 0 0 auto; }
+.ck-title { font-size: 1rem; font-weight: 700; margin: 0; }
+.ck-text { font-size: .86rem; line-height: 1.5; color: #4A5A6A; margin: 0 0 14px; }
+.ck-text a { color: #2563EB; font-weight: 600; text-decoration: underline; }
+
+.ck-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.ck-btn {
+  flex: 1 1 140px;
+  height: 42px;
+  border-radius: 11px;
+  font: 600 .88rem 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, background .2s;
+}
+.ck-btn:focus-visible { outline: 3px solid rgba(37, 99, 235, .45); outline-offset: 2px; }
+.ck-btn-primary { background: #2563EB; color: #fff; border: 1px solid #2563EB; box-shadow: 0 6px 16px rgba(37, 99, 235, .25); }
+.ck-btn-primary:hover { background: #1D4ED8; transform: translateY(-1px); }
+.ck-btn-ghost { background: #fff; color: #16263B; border: 1px solid #cbd5e1; }
+.ck-btn-ghost:hover { background: #f1f5f9; }
+
+.ck-link-config {
+  background: none; border: 0; padding: 0; cursor: pointer;
+  color: inherit; font: inherit; text-decoration: underline;
+}
+.ck-link-config:hover { color: #BAE6FD; }
+.footer-legal { margin: 8px 0 0; font-size: .82rem; opacity: .9; }
+.footer-legal a { color: inherit; text-decoration: underline; }
+
+@keyframes ck-entra { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes ck-sale  { to   { opacity: 0; transform: translateY(24px); } }
+
+@media (max-width: 480px) {
+  .ck-banner { left: 8px; right: 8px; bottom: 8px; width: auto; padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ck-banner, .ck-banner.ck-sale { animation: none; }
+  .ck-btn { transition: none; }
+}
+
+/* Mapa de terceros bloqueado hasta aceptar cookies opcionales */
+.ck-embed-placeholder {
+  display: none;
+  align-items: center; justify-content: center; flex-direction: column; gap: 10px;
+  min-height: 220px; padding: 24px; text-align: center;
+  background: #F0F7FE; border: 1px dashed #93b4dc; border-radius: 14px;
+  color: #4A5A6A; font-size: .9rem;
+}
+.ck-embed-placeholder button {
+  background: #2563EB; color: #fff; border: 0; border-radius: 10px;
+  padding: 10px 18px; font-weight: 600; cursor: pointer;
+}
+.map-embed iframe:not([src]) { display: none; }
+.map-embed iframe:not([src]) ~ .ck-embed-placeholder { display: flex; }

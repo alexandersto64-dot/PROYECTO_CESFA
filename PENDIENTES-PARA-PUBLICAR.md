@@ -76,3 +76,35 @@ Ya validé todo lo que se puede probar sin navegador (estructura HTML, enlaces, 
 ---
 
 **En resumen:** el sitio está terminado técnicamente. Lo único que falta es contenido real del colegio y los 3 datos que dependen de tener dominio/hosting. En cuanto tengan eso, es cuestión de horas (no días) terminar de conectar todo.
+
+---
+
+## 5. Revisión de publicación (octubre 2026) — hecho y pendiente
+
+### Ya implementado en el código
+- Aviso de cookies + `cookies.html` + enlaces legales en el pie (el mapa de Google solo carga con consentimiento).
+- `privacidad.html` y `terminos.html` completos (Ley 29733 y reglamento D.S. 016-2024-JUS).
+- Casilla de aceptación de privacidad en el formulario de Contacto.
+- `.htaccess`: redirección a HTTPS (no afecta localhost), HSTS y cookie de sesión `Secure` (solo si hay HTTPS), Content-Security-Policy, compresión y caché, bloqueo de `debug_*.txt` y `test.php`.
+- Respaldos: `herramientas/respaldar.php` / `.bat` + `LEEME-RESPALDOS.md`.
+- Login: mejor contraste y enlaces a Privacidad / Términos / Cookies.
+- Se eliminaron `backend/config/debug_boleta_9.txt` y `debug_boleta_10.txt` (contenían nombre y DNI reales de una estudiante).
+
+### Pendiente — necesita información o acciones fuera del código
+| Pendiente | Qué se necesita |
+|---|---|
+| Dominio real (`TU-DOMINIO-AQUI.pe` en `sitemap.xml` y `robots.txt`) | Dominio y hosting definitivos |
+| Certificado HTTPS | Se activa en el hosting; luego el `.htaccess` ya hace el resto |
+| Nombre/cargo del responsable de datos y correo para derechos ARCO (`privacidad.html`) | Datos de la dirección |
+| Plazos de conservación de datos (`privacidad.html`) | Definirlos con la dirección o un asesor legal |
+| Revisión legal de privacidad, términos y cookies | Un abogado o asesor |
+| Formspree: reemplazar `TU_ID_DE_FORMSPREE` en `contacto.html` | Cuenta de Formspree |
+| Teléfonos, correos, redes y WhatsApp del pie (textos "pendiente") | Datos reales del colegio |
+| Correo institucional (hoy `correo.local.php` usa un Gmail personal) | Cuenta/SMTP institucional |
+| Contenido real (historia, docentes, fotos, noticias) | Ver sección 1 |
+| Autorización de padres para publicar fotos de menores | Formato firmado por los padres |
+| Actualizar librerías de `backend/vendor` (dompdf, etc.) | Ejecutar `composer update` con internet y probar boletas |
+| Google Search Console / Analytics | Cuenta de Google y dominio publicado |
+| Monitoreo (UptimeRobot u otro) y plan de soporte | Definir responsable y canal |
+| Migración `migracion_login_intentos.sql` | Ejecutarla en la BD de producción (sin ella el límite de intentos usa archivos temporales) |
+| Página de error personalizada (`ErrorDocument`) | Depende de la ruta final del sitio |

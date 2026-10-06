@@ -1,0 +1,4 @@
+# Panel privado: que ningún buscador lo indexe ni lo guarde en caché pública.
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow, noarchive"
+</IfModule>

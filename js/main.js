@@ -479,7 +479,8 @@ const SEARCH_INDEX = [
   { title: 'Preescolar', url: 'preescolar.html', category: 'Niveles', keywords: 'preescolar inicial niños jardín', snippet: 'Información del nivel Preescolar.' },
   { title: 'Primaria', url: 'primaria.html', category: 'Niveles', keywords: 'primaria estudiantes grados', snippet: 'Información del nivel Primaria.' },
   { title: 'Padres de Familia', url: 'padres.html', category: 'Comunidad', keywords: 'padres familia matrícula calendario preguntas frecuentes faq comunicación', snippet: 'Matrícula, calendario y preguntas frecuentes.' },
-  { title: 'Docentes', url: 'docentes.html', category: 'Comunidad', keywords: 'docentes profesores maestros equipo personal aula innovación pedagógica', snippet: 'Equipo docente y administrativo.' },
+  { title: 'Docentes de Primaria', url: 'docentes-primaria.html', category: 'Comunidad', keywords: 'docentes profesores maestros primaria equipo personal aula innovación pedagógica', snippet: 'Equipo docente de Primaria por área.' },
+  { title: 'Docentes de Secundaria', url: 'docentes-secundaria.html', category: 'Comunidad', keywords: 'docentes profesores maestros secundaria equipo personal aula innovación pedagógica', snippet: 'Equipo docente de Secundaria por área.' },
   { title: 'Noticias', url: 'noticias.html', category: 'Más', keywords: 'noticias comunicados eventos calendario próximos', snippet: 'Comunicados y próximos eventos del colegio.' },
   { title: 'Contacto', url: 'contacto.html', category: 'Más', keywords: 'contacto dirección ubicación teléfono correo mapa formulario', snippet: 'Formulario, dirección y ubicación del colegio.' },
 ];
@@ -702,5 +703,713 @@ try {
   }
 } catch (err) {
   console.error('[main.js] Error en tarjetas de docentes (modal):', err);
+}
+
+// ============ HORARIO POR DOCENTE (modal reutilizable) ============
+// Cada botón "Ver horario" trae sus datos en atributos data-*:
+//   data-teacher-name, data-teacher-role  -> encabezado del modal
+//   data-schedule  -> JSON con las filas: [{"dia":"","hora":"","curso":"","grado":""}]
+// El mismo modal se reutiliza para todos los profesores de la página:
+// al pulsar "Ver horario" en otro profesor, el contenido se reemplaza
+// por completo (nunca se mezcla con el horario anterior).
+try {
+  const scheduleButtons = document.querySelectorAll('.teacher-schedule-btn');
+  const scheduleModalOverlay = document.getElementById('scheduleModalOverlay');
+
+  if (scheduleButtons.length && scheduleModalOverlay) {
+    const scheduleModalName = document.getElementById('scheduleModalName');
+    const scheduleModalRole = document.getElementById('scheduleModalRole');
+    const scheduleModalBody = document.getElementById('scheduleModalBody');
+    const scheduleModalClose = scheduleModalOverlay.querySelector('.teacher-modal-close');
+
+    function openScheduleModal(btn) {
+      scheduleModalName.textContent = btn.dataset.teacherName || '';
+      scheduleModalRole.textContent = btn.dataset.teacherRole || '';
+
+      let rows = [];
+      try { rows = JSON.parse(btn.dataset.schedule || '[]'); } catch (e) { rows = []; }
+
+      scheduleModalBody.innerHTML = rows.length
+        ? rows.map(r => `<tr><td>${r.dia || ''}</td><td>${r.hora || ''}</td><td>${r.curso || ''}</td><td>${r.grado || ''}</td></tr>`).join('')
+        : `<tr><td colspan="4" class="placeholder-text">[Horario pendiente de confirmar con el colegio]</td></tr>`;
+
+      scheduleModalOverlay.classList.add('open');
+    }
+
+    function closeScheduleModal() { scheduleModalOverlay.classList.remove('open'); }
+
+    scheduleButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // evita que también dispare el modal de biografía del docente
+        openScheduleModal(btn);
+      });
+    });
+
+    scheduleModalClose?.addEventListener('click', closeScheduleModal);
+    scheduleModalOverlay.addEventListener('click', (e) => { if (e.target === scheduleModalOverlay) closeScheduleModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && scheduleModalOverlay.classList.contains('open')) closeScheduleModal();
+    });
+  }
+} catch (err) {
+  console.error('[main.js] Error en modal de horario por docente:', err);
+}
+
+// ============ DOCENTES DE PRIMARIA: GRADO Y SECCIÓN (filtro) ============
+// El filtro de área se retiró de esta página; ahora el único criterio
+// es grado+sección (#gradoSeccionFiltersPrimaria / data-grado-primaria).
+// El grado/sección de cada docente sale de data-grados-primaria (mismo
+// campo JSON vacío "[]" que ya usaba data-secciones en el modal
+// "Ver más" mientras el colegio no confirme esa información) — no se
+// inventa ninguna asignación: hasta que ese campo se complete por
+// docente, "TODOS" muestra las tarjetas existentes y cualquier grado
+// específico mostrará el aviso de "sin coincidencias" en vez de
+// inventar quién dicta en ese grado y sección.
+try {
+  const gradoFilterBtnsPrimaria = document.querySelectorAll('#gradoSeccionFiltersPrimaria .events-filter-btn');
+  const areaCardsPrimaria = document.querySelectorAll('#areaDocentesGridPrimaria .staff-photo-card');
+  const areaEmptyMsgPrimaria = document.getElementById('areaEmptyMsgPrimaria');
+
+  if (gradoFilterBtnsPrimaria.length && areaCardsPrimaria.length) {
+
+    function aplicarFiltroGradoPrimaria(gradoActual) {
+      let anyVisible = false;
+
+      areaCardsPrimaria.forEach(card => {
+        let gradosCard = [];
+        try {
+          gradosCard = JSON.parse(card.dataset.gradosPrimaria || '[]');
+        } catch (e) {
+          gradosCard = [];
+        }
+        const show = gradoActual === 'todos' || gradosCard.includes(gradoActual);
+        card.style.display = show ? '' : 'none';
+        if (show) anyVisible = true;
+      });
+
+      if (areaEmptyMsgPrimaria) areaEmptyMsgPrimaria.hidden = anyVisible;
+    }
+
+    gradoFilterBtnsPrimaria.forEach(btn => {
+      btn.addEventListener('click', () => {
+        gradoFilterBtnsPrimaria.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        aplicarFiltroGradoPrimaria(btn.dataset.gradoPrimaria);
+      });
+    });
+
+    aplicarFiltroGradoPrimaria('todos');
+  }
+} catch (err) {
+  console.error('[main.js] Error en filtro de docentes de Primaria por grado y sección:', err);
+}
+
+// ============ DOCENTES DE SECUNDARIA POR ÁREA (filtro) ============
+// Filtra las tarjetas de #areaDocentesGrid según el botón de área activo
+// (reutiliza el estilo de .events-filter-btn). Si el área elegida no
+// tiene ninguna tarjeta, se muestra el aviso #areaEmptyMsg en vez de
+// inventar un docente.
+try {
+  const areaFilterBtns = document.querySelectorAll('#areaFilters .events-filter-btn');
+  const areaCards = document.querySelectorAll('#areaDocentesGrid .staff-photo-card');
+  const areaEmptyMsg = document.getElementById('areaEmptyMsg');
+
+  if (areaFilterBtns.length && areaCards.length) {
+    areaFilterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        areaFilterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const area = btn.dataset.area;
+        let anyVisible = false;
+        areaCards.forEach(card => {
+          const show = area === 'todas' || card.dataset.area === area;
+          card.style.display = show ? '' : 'none';
+          if (show) anyVisible = true;
+        });
+        if (areaEmptyMsg) areaEmptyMsg.hidden = anyVisible;
+      });
+    });
+  }
+} catch (err) {
+  console.error('[main.js] Error en filtro de docentes de Secundaria por área:', err);
+}
+
+// ============ MODAL DE DOCENTE DE SECUNDARIA POR ÁREA (Horario en imagen / PP.FF) ============
+// Cada botón ".docente-modal-btn" trae en atributos data-*:
+//   data-area, data-grado, data-seccion  -> Área / Grado / Sección (cuando existan)
+//   data-teacher-name, data-teacher-role -> encabezado del modal (Nombre / Rol)
+//   data-horario-img -> ruta de la imagen del horario de ese profesor/curso.
+//                       Mientras el colegio no entregue la foto real, este
+//                       atributo queda vacío ("") y el visor muestra el
+//                       aviso de "pendiente de registrar" en su lugar.
+//                       Cada profesor/curso tiene su propio atributo, así
+//                       que basta con completar data-horario-img en su botón
+//                       (aquí en el HTML) para que ese docente muestre su foto.
+//   data-ppff       -> texto de Atención PP.FF (opcional)
+// Un solo modal dinámico se reutiliza para los botones de la página: su
+// contenido se reemplaza por completo en cada apertura, nunca se mezcla
+// con el docente anterior. El botón "Ver Horario de Clases" abre, sobre
+// ese mismo modal, un segundo visor reutilizable con la imagen del horario.
+const AREA_LABELS_SECUNDARIA = {
+  matematica: 'Matemática',
+  comunicacion: 'Comunicación',
+  ept: 'EPT',
+  religion: 'Religión',
+  cyt: 'Ciencia y Tecnología',
+  arte: 'Arte y Cultura',
+  dpcc: 'DPCC',
+  ccss: 'CC.SS',
+  edfisica: 'Educación Física',
+  ingles: 'Inglés'
+};
+
+try {
+  const docenteButtons = document.querySelectorAll('.docente-modal-btn');
+  const docenteModalOverlay = document.getElementById('docenteModalOverlay');
+
+  if (docenteButtons.length && docenteModalOverlay) {
+    const docenteModalName = document.getElementById('docenteModalName');
+    const docenteModalRole = document.getElementById('docenteModalRole');
+    const docenteModalMeta = document.getElementById('docenteModalMeta');
+    const docenteModalPPFF = document.getElementById('docenteModalPPFF');
+    const docenteModalHorarioBtn = document.getElementById('docenteModalHorarioBtn');
+    const docenteModalClose = docenteModalOverlay.querySelector('.teacher-modal-close');
+
+    const horarioImagenOverlay = document.getElementById('horarioImagenOverlay');
+    const horarioImagenTitle = document.getElementById('horarioImagenTitle');
+    const horarioImagenImg = document.getElementById('horarioImagenImg');
+    const horarioImagenPlaceholder = document.getElementById('horarioImagenPlaceholder');
+    const horarioImagenClose = document.getElementById('horarioImagenClose');
+
+    let horarioImgActual = '';
+    let nombreDocenteActual = '';
+
+    function openDocenteModal(btn) {
+      docenteModalName.textContent = btn.dataset.teacherName || '';
+      docenteModalRole.textContent = btn.dataset.teacherRole || '';
+      nombreDocenteActual = btn.dataset.teacherName || '';
+
+      if (docenteModalMeta) {
+        const areaCodigo = btn.dataset.area || '';
+        const areaLabel = AREA_LABELS_SECUNDARIA[areaCodigo] || areaCodigo;
+        const grado = btn.dataset.grado || '';
+        const seccion = btn.dataset.seccion || '';
+        docenteModalMeta.textContent = (grado && seccion)
+          ? `${areaLabel} · ${grado} Grado ${seccion}`
+          : areaLabel;
+      }
+
+      horarioImgActual = (btn.dataset.horarioImg || '').trim();
+
+      const ppff = (btn.dataset.ppff || '').trim();
+      docenteModalPPFF.textContent = ppff || 'Información pendiente de registrar.';
+
+      docenteModalOverlay.classList.add('open');
+    }
+
+    function closeDocenteModal() { docenteModalOverlay.classList.remove('open'); }
+
+    docenteButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openDocenteModal(btn);
+      });
+    });
+
+    docenteModalClose?.addEventListener('click', closeDocenteModal);
+    docenteModalOverlay.addEventListener('click', (e) => { if (e.target === docenteModalOverlay) closeDocenteModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (
+        e.key === 'Escape' &&
+        docenteModalOverlay.classList.contains('open') &&
+        !(horarioImagenOverlay && horarioImagenOverlay.classList.contains('open'))
+      ) {
+        closeDocenteModal();
+      }
+    });
+
+    // ---- Visor de imagen de horario (se abre sobre el modal del docente) ----
+    if (horarioImagenOverlay && docenteModalHorarioBtn) {
+      function openHorarioImagen() {
+        if (horarioImagenTitle) horarioImagenTitle.textContent = nombreDocenteActual;
+
+        if (horarioImgActual) {
+          horarioImagenImg.src = horarioImgActual;
+          horarioImagenImg.style.display = '';
+          if (horarioImagenPlaceholder) horarioImagenPlaceholder.style.display = 'none';
+        } else {
+          horarioImagenImg.removeAttribute('src');
+          horarioImagenImg.style.display = 'none';
+          if (horarioImagenPlaceholder) horarioImagenPlaceholder.style.display = '';
+        }
+
+        horarioImagenOverlay.classList.add('open');
+        horarioImagenOverlay.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeHorarioImagen() {
+        horarioImagenOverlay.classList.remove('open');
+        horarioImagenOverlay.setAttribute('aria-hidden', 'true');
+      }
+
+      docenteModalHorarioBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openHorarioImagen();
+      });
+
+      horarioImagenClose?.addEventListener('click', closeHorarioImagen);
+      horarioImagenOverlay.addEventListener('click', (e) => { if (e.target === horarioImagenOverlay) closeHorarioImagen(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && horarioImagenOverlay.classList.contains('open')) closeHorarioImagen();
+      });
+    }
+  }
+} catch (err) {
+  console.error('[main.js] Error en modal de docente de Secundaria por área:', err);
+}
+
+// ============ VISOR DE DOCUMENTOS PDF (modal reutilizable) ============
+// Intercepta los enlaces al FUT y al Reglamento Interno (en el menú
+// "Documentos Institucionales" y en documentos.html) para que, en vez
+// de abrir/descargar el PDF directamente, se muestre un modal con:
+// nombre del documento, vista previa (iframe) y botón de descarga.
+// El modal se crea una sola vez (inyectado en <body>) y se reutiliza
+// para ambos documentos, reemplazando su contenido cada vez.
+// No modifica ningún otro enlace ni funcionalidad existente.
+try {
+  // Mapa de rutas conocidas -> nombre visible del documento.
+  // Solo estos dos documentos abren el modal; cualquier otro enlace
+  // (incluidos otros PDF que pudieran añadirse en el futuro) sigue
+  // funcionando como hasta ahora.
+  const DOC_MODAL_FILES = {
+    'FUT-PRUEBA.pdf': 'FUT (Formulario Único de Trámite)',
+    'Reglamento-Interno-PRUEBA.pdf': 'Reglamento Interno',
+    'Calendarizacion-2026.pdf': 'Calendarización 2026',
+    'Normas-de-Convivencia-2026.pdf': 'Normas de Convivencia 2026'
+  };
+
+  function matchDocModalFile(href) {
+    if (!href) return null;
+    const cleanHref = href.split('?')[0].split('#')[0];
+    const fileName = cleanHref.substring(cleanHref.lastIndexOf('/') + 1);
+    return DOC_MODAL_FILES[fileName] ? { fileName, title: DOC_MODAL_FILES[fileName] } : null;
+  }
+
+  const docModalLinks = Array.from(document.querySelectorAll('a[href$=".pdf"]'))
+    .filter(link => matchDocModalFile(link.getAttribute('href')));
+
+  if (docModalLinks.length) {
+    let docModalOverlay, docModalTitle, docModalFrame, docModalDownload, docModalClose;
+
+    function buildDocModal() {
+      if (docModalOverlay) return;
+
+      docModalOverlay = document.createElement('div');
+      docModalOverlay.className = 'teacher-modal-overlay doc-modal-overlay';
+      docModalOverlay.id = 'docModalOverlay';
+      docModalOverlay.innerHTML = `
+        <div class="teacher-modal doc-modal" role="dialog" aria-modal="true" aria-labelledby="docModalTitle">
+          <button type="button" class="teacher-modal-close" aria-label="Cerrar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+          <h3 id="docModalTitle">Documento</h3>
+          <div class="doc-modal-viewer">
+            <iframe id="docModalFrame" title="Vista previa del documento PDF" src=""></iframe>
+          </div>
+          <div class="doc-modal-actions">
+            <a id="docModalDownload" class="btn btn-primary" href="#" download>Descargar PDF</a>
+          </div>
+        </div>`;
+      document.body.appendChild(docModalOverlay);
+
+      docModalTitle = document.getElementById('docModalTitle');
+      docModalFrame = document.getElementById('docModalFrame');
+      docModalDownload = document.getElementById('docModalDownload');
+      docModalClose = docModalOverlay.querySelector('.teacher-modal-close');
+
+      docModalClose.addEventListener('click', closeDocModal);
+      docModalOverlay.addEventListener('click', (e) => { if (e.target === docModalOverlay) closeDocModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && docModalOverlay.classList.contains('open')) closeDocModal();
+      });
+    }
+
+    function openDocModal(href, title) {
+      buildDocModal();
+      docModalTitle.textContent = title;
+      docModalFrame.src = href;
+      docModalDownload.setAttribute('href', href);
+      docModalDownload.setAttribute('download', '');
+      docModalOverlay.classList.add('open');
+    }
+
+    function closeDocModal() {
+      if (!docModalOverlay) return;
+      docModalOverlay.classList.remove('open');
+      // Detiene la carga del PDF al cerrar (evita audio/descargas en segundo plano)
+      docModalFrame.src = '';
+    }
+
+    docModalLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const match = matchDocModalFile(link.getAttribute('href'));
+        if (!match) return;
+        e.preventDefault();
+        openDocModal(link.getAttribute('href'), match.title);
+      });
+    });
+  }
+} catch (err) {
+  console.error('[main.js] Error en visor de documentos PDF:', err);
+}
+
+/* =========================================================
+   NOTICIA INSTITUCIONAL DESTACADA
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  const modal = document.getElementById("institutionalNews");
+  const backdrop = document.getElementById("institutionalNewsBackdrop");
+  const closeButton = document.getElementById("institutionalNewsClose");
+  const laterButton = document.getElementById("institutionalNewsLater");
+
+  if (!modal) {
+    return;
+  }
+
+  let lastFocusedElement = null;
+
+  /* -------------------------------------------------------
+     ABRIR
+  ------------------------------------------------------- */
+
+  function openNews() {
+
+    lastFocusedElement = document.activeElement;
+
+    modal.classList.add("is-open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "false"
+    );
+
+    document.body.classList.add(
+      "institutional-news-open"
+    );
+
+    /* Enfocar botón cerrar */
+    setTimeout(function () {
+
+      if (closeButton) {
+        closeButton.focus();
+      }
+
+    }, 100);
+  }
+
+
+  /* -------------------------------------------------------
+     CERRAR
+  ------------------------------------------------------- */
+
+  function closeNews() {
+
+    modal.classList.remove("is-open");
+
+    modal.setAttribute(
+      "aria-hidden",
+      "true"
+    );
+
+    document.body.classList.remove(
+      "institutional-news-open"
+    );
+
+    /* Devolver foco al elemento anterior */
+    if (
+      lastFocusedElement &&
+      typeof lastFocusedElement.focus === "function"
+    ) {
+
+      lastFocusedElement.focus();
+
+    }
+  }
+
+
+  /* -------------------------------------------------------
+     MOSTRAR DESPUÉS DE CARGAR
+  ------------------------------------------------------- */
+
+  setTimeout(function () {
+
+    openNews();
+
+  }, 900);
+
+
+  /* -------------------------------------------------------
+     BOTÓN X
+  ------------------------------------------------------- */
+
+  if (closeButton) {
+
+    closeButton.addEventListener(
+      "click",
+      closeNews
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     BOTÓN CERRAR
+  ------------------------------------------------------- */
+
+  if (laterButton) {
+
+    laterButton.addEventListener(
+      "click",
+      closeNews
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     CLIC EN EL FONDO
+  ------------------------------------------------------- */
+
+  if (backdrop) {
+
+    backdrop.addEventListener(
+      "click",
+      closeNews
+    );
+
+  }
+
+
+  /* -------------------------------------------------------
+     TECLA ESC
+  ------------------------------------------------------- */
+
+  document.addEventListener(
+    "keydown",
+    function (event) {
+
+      if (
+        event.key === "Escape" &&
+        modal.classList.contains("is-open")
+      ) {
+
+        closeNews();
+
+      }
+
+    }
+  );
+
+});
+
+/* =========================================================
+   MODAL DE ÁREAS INSTITUCIONALES (Horario de Atención)
+   Agregar este bloque al final de js/main.js
+   Cada botón .docente-modal-btn puede traer:
+     data-teacher-name  -> nombre del responsable (texto)
+     data-teacher-role  -> cargo / área (texto)
+     data-horario       -> JSON array de strings, ej: ["Lunes a Viernes: 8:00am - 1:00pm"]
+     data-info          -> JSON array de strings con la descripción del área
+     data-contacto      -> JSON array de strings, ej: ["Anexo: 101", "correo@colegio.edu.pe"]
+   Mientras no haya datos reales, deja el atributo como "[]" y se mostrará
+   automáticamente "Información pendiente de registrar."
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const modal = document.getElementById("teacherModal");
+  const closeBtn = document.getElementById("teacherModalClose");
+
+  const title = document.getElementById("teacherModalTitle");
+  const role = document.getElementById("teacherModalRole");
+
+  const horario = document.getElementById("teacherModalHorario");
+  const info = document.getElementById("teacherModalInfo");
+  const contacto = document.getElementById("teacherModalContacto");
+
+  const buttons = document.querySelectorAll(".docente-modal-btn");
+
+  if (!modal || !closeBtn || buttons.length === 0) return;
+
+  function parseLista(valor) {
+    try {
+      const datos = JSON.parse(valor || "[]");
+      return Array.isArray(datos) ? datos : [];
+    } catch (error) {
+      return [];
+    }
+  }
+
+  function pintarLista(contenedor, lista) {
+    if (lista.length > 0) {
+      contenedor.innerHTML = lista.map(linea => `<p>${linea}</p>`).join("");
+    } else {
+      contenedor.innerHTML = `<p class="placeholder-text">Información pendiente de registrar.</p>`;
+    }
+  }
+
+  function abrirModal(button) {
+    const nombre = button.dataset.teacherName || "Información pendiente de registrar.";
+    const cargo = button.dataset.teacherRole || "Área institucional";
+
+    title.textContent = nombre;
+    role.textContent = cargo;
+
+    pintarLista(horario, parseLista(button.dataset.horario));
+    pintarLista(info, parseLista(button.dataset.info));
+    pintarLista(contacto, parseLista(button.dataset.contacto));
+
+    modal.classList.add("active");
+    modal.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function cerrarModal() {
+    modal.classList.remove("active");
+    modal.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  buttons.forEach(button => {
+    button.addEventListener("click", () => abrirModal(button));
+  });
+
+  closeBtn.addEventListener("click", cerrarModal);
+
+  modal.addEventListener("click", event => {
+    if (event.target === modal) cerrarModal();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && modal.classList.contains("active")) {
+      cerrarModal();
+    }
+  });
+
+});
+/* =========================================================
+   COMUNICADOS (comunicado.html)
+   Migrado desde un <script> embebido en el HTML a este archivo
+   compartido, siguiendo la misma convención del resto del sitio.
+   Protegido con try/catch y comprobación de elementos, para que
+   si esta página no está cargada no afecte a las demás.
+   ========================================================= */
+try {
+  const searchInput = document.getElementById('communiqueSearch');
+  const searchButton = document.getElementById('searchButton');
+  const filters = document.querySelectorAll('.communique-filter');
+  const cards = document.querySelectorAll('.communique-card');
+  const empty = document.getElementById('communiquesEmpty');
+
+  if (searchInput && cards.length) {
+    let activeFilter = 'todos';
+
+    function filterCommuniques() {
+      const search = searchInput.value.toLowerCase().trim();
+      let visible = 0;
+
+      cards.forEach(card => {
+        const category = card.dataset.category || '';
+        const title = card.dataset.title || '';
+        const searchData = card.dataset.search || '';
+
+        const matchesFilter = activeFilter === 'todos' || category === activeFilter;
+        const matchesSearch = !search ||
+          title.toLowerCase().includes(search) ||
+          searchData.toLowerCase().includes(search);
+
+        if (matchesFilter && matchesSearch) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      if (empty) empty.classList.toggle('show', visible === 0);
+    }
+
+    searchInput.addEventListener('input', filterCommuniques);
+    searchButton?.addEventListener('click', filterCommuniques);
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        filterCommuniques();
+      }
+    });
+
+    filters.forEach(filter => {
+      filter.addEventListener('click', function () {
+        filters.forEach(button => {
+          button.classList.remove('active');
+          button.setAttribute('aria-pressed', 'false');
+        });
+        this.classList.add('active');
+        this.setAttribute('aria-pressed', 'true');
+        activeFilter = this.dataset.filter;
+        filterCommuniques();
+      });
+    });
+  }
+} catch (err) {
+  console.error('[main.js] Error en buscador/filtros de comunicados:', err);
+}
+
+try {
+  const modal = document.getElementById('communiqueModal');
+  const modalClose = document.getElementById('communiqueModalClose');
+  const modalTitle = document.getElementById('modalCommuniqueTitle');
+  const modalCategory = document.getElementById('modalCommuniqueCategory');
+  const modalDate = document.getElementById('modalCommuniqueDate');
+  const modalBody = document.getElementById('modalCommuniqueBody');
+  const openButtons = document.querySelectorAll('.open-communique');
+
+  if (modal && modalClose && openButtons.length) {
+    let lastFocusedButton = null;
+
+    function openModal(button) {
+      lastFocusedButton = button;
+
+      modalTitle.textContent = button.dataset.title || 'Comunicado';
+      modalCategory.textContent = button.dataset.category || 'COMUNICADO';
+      modalDate.textContent = button.dataset.date || 'Fecha pendiente';
+      modalBody.textContent = button.dataset.content || 'Contenido pendiente de publicación oficial.';
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+      modalClose.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lastFocusedButton?.focus();
+    }
+
+    openButtons.forEach(button => {
+      button.addEventListener('click', () => openModal(button));
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+  }
+} catch (err) {
+  console.error('[main.js] Error en modal de comunicados:', err);
 }
 

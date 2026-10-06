@@ -1,0 +1,25 @@
+<?php
+
+// ==========================================
+// PLANTILLA de configuración SMTP.
+//
+// 1. Copia este archivo como "correo.local.php" (mismo directorio).
+// 2. Completa tus datos reales de correo en la copia.
+// 3. NUNCA subas "correo.local.php" a git — ya está en .gitignore.
+//    Solo esta plantilla (con valores de ejemplo) se sube al
+//    repositorio.
+//
+// Si el hosting real del colegio permite configurar variables de
+// entorno del servidor (SMTP_HOST, SMTP_USER, etc.), esas tienen
+// prioridad sobre este archivo — ver backend/config/correo.php.
+// ==========================================
+
+return [
+    "SMTP_HOST"       => "smtp.gmail.com",
+    "SMTP_PORT"       => 587,
+    "SMTP_USER"       => "tu-correo-institucional@gmail.com",
+    "SMTP_PASS"       => "tu-contraseña-de-aplicación",
+    "SMTP_FROM_EMAIL" => "tu-correo-institucional@gmail.com",
+    "SMTP_FROM_NAME"  => "I.E.P. 88044 Abraham Valdelomar",
+    "SMTP_SECURE"     => "tls", // "tls" para el puerto 587, "ssl" para el puerto 465
+];

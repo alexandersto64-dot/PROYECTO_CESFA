@@ -5,6 +5,17 @@ $dbname = "colegio_ie88044";
 $username = "root";
 $password = "";
 
+// Si existe database.local.php (no se sube a git) sus valores tienen prioridad.
+// Permite usar un usuario de BD propio sin tocar este archivo.
+$local = __DIR__ . "/database.local.php";
+if (is_file($local)) {
+    $cfg = require $local;
+    $host     = $cfg["host"]     ?? $host;
+    $dbname   = $cfg["dbname"]   ?? $dbname;
+    $username = $cfg["username"] ?? $username;
+    $password = $cfg["password"] ?? $password;
+}
+
 try {
 
     $conexion = new PDO(
