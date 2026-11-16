@@ -241,7 +241,7 @@ $actividadEtiquetasAccion = [
     >
 
     <title>
-        Administrador - I.E.P. 88044 Abraham Valdelomar
+        Administrador - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -513,7 +513,7 @@ $actividadEtiquetasAccion = [
 
         <div class="card">
             <h3><?= icon("calendar") ?> Calendario académico</h3>
-            <p>Exámenes, reuniones, feriados y actividades del colegio.</p>
+            <p>Exámenes, reuniones, feriados y actividades de CESFA.</p>
             <a href="calendario.php">Ver calendario</a>
         </div>
 

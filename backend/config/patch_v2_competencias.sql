@@ -19,11 +19,11 @@
 --      sin ninguna competencia sembrada, en silencio.
 --
 -- Orden de ejecución:
---   mysql -u root -p colegio_ie88044 < patch_v2_competencias.sql
---   mysql -u root -p colegio_ie88044 < seed_competencias.sql   (la versión nueva, ya corregida)
+--   mysql -u root -p cesfa < patch_v2_competencias.sql
+--   mysql -u root -p cesfa < seed_competencias.sql   (la versión nueva, ya corregida)
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- 1. Ampliar columnas que se quedaban cortas con textos oficiales largos
 ALTER TABLE competencias

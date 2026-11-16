@@ -110,7 +110,7 @@ function throttle_mantenimiento(PDO $conexion): void {
 
 function throttle_archivo_dir(): string {
 
-    $dir = rtrim(sys_get_temp_dir(), "/\\") . DIRECTORY_SEPARATOR . "ie88044_login";
+    $dir = rtrim(sys_get_temp_dir(), "/\\") . DIRECTORY_SEPARATOR . "cesfa_login";
 
     if (!is_dir($dir)) {
         @mkdir($dir, 0700, true);

@@ -34,7 +34,7 @@ $alertaEspacio = $espacioLibre !== false && $espacioLibre < (500 * 1024 * 1024);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salud del sistema · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Salud del sistema · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -47,7 +47,7 @@ $alertaEspacio = $espacioLibre !== false && $espacioLibre < (500 * 1024 * 1024);
 <header>
     <div>
         <h1><?= icon("hard-drive") ?> Salud del sistema</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>

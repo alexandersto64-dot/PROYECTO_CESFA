@@ -3,7 +3,7 @@
 // ==========================================================
 // Extracción de texto de boletas en PDF (Etapa 2).
 //
-// Decisión confirmada: las boletas reales del colegio tienen texto
+// Decisión confirmada: las boletas reales de CESFA tienen texto
 // seleccionable (generadas digitalmente), no son escaneadas. Por
 // eso esta etapa SOLO implementa extracción directa de texto, sin
 // OCR. Si en el futuro aparece una boleta escaneada, esta función

@@ -52,7 +52,7 @@ $etiquetasAccion = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auditoría · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Auditoría · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -65,7 +65,7 @@ $etiquetasAccion = [
 <header>
     <div>
         <h1><?= icon("history") ?> Registro de auditoría</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>

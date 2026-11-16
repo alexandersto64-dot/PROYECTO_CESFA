@@ -9,7 +9,7 @@
 //
 // Si pasaron más de N segundos desde la última petición del usuario,
 // se destruye la sesión y se lo manda al login con un aviso.
-//   - Personal del colegio (Admin/Subdirector/Profesor): 30 min
+//   - Personal de CESFA (Admin/Subdirector/Profesor): 30 min
 //   - Padres de familia: 60 min
 // Cada petición válida renueva el contador.
 // ==========================================
@@ -41,7 +41,7 @@ if (session_status() === PHP_SESSION_ACTIVE && isset($_SESSION["id_usuario"])) {
         // 2. Volver al login. La ruta relativa se calcula según la
         //    profundidad de la página que se pidió (admin/ → ../,
         //    backend/reportes/ → ../../), así funciona igual en
-        //    localhost/IE.88044/ que en un dominio propio.
+        //    localhost/CESFA/ que en un dominio propio.
         $raizProyecto = str_replace("\\", "/", (string) realpath(__DIR__ . "/../.."));
         $dirScript    = str_replace("\\", "/", dirname((string) realpath($_SERVER["SCRIPT_FILENAME"] ?? "")));
         $relativo     = trim(substr($dirScript, strlen($raizProyecto)), "/");

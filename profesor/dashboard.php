@@ -377,7 +377,7 @@ $notificacionesPreview = array_slice(
     >
 
     <title>
-        Panel del Profesor - I.E.P. 88044 Abraham Valdelomar
+        Panel del Profesor - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -462,7 +462,7 @@ $notificacionesPreview = array_slice(
             <div class="header-avatar"><?= htmlspecialchars(mb_strtoupper(mb_substr($profesor["nombres"], 0, 1)) . mb_strtoupper(mb_substr($profesor["apellidos"], 0, 1))) ?></div>
             <div class="header-identity-text">
                 <strong><?= htmlspecialchars($profesor["nombres"]) ?> <?= htmlspecialchars($profesor["apellidos"]) ?></strong>
-                <span><?= $nivelesProfesorLabel !== "" ? htmlspecialchars($nivelesProfesorLabel) . " · " : "" ?>I.E.P. 88044</span>
+                <span><?= $nivelesProfesorLabel !== "" ? htmlspecialchars($nivelesProfesorLabel) . " · " : "" ?>CESFA</span>
             </div>
         </div>
 

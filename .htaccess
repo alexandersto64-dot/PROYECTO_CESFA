@@ -1,4 +1,4 @@
-# ===== I.E. 88044 — endurecimiento básico (Apache 2.4 / XAMPP) =====
+# ===== CESFA — endurecimiento básico (Apache 2.4 / XAMPP) =====
 Options -Indexes
 
 # Nunca servir repositorio, dumps, migraciones, docs internos ni plantillas de config

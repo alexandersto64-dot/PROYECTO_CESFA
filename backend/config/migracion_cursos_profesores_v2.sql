@@ -1,6 +1,6 @@
 -- ============================================================
 -- MIGRACIÓN V2 — CURSOS + PROFESORES + NIVEL + GRADO
--- Base de datos: colegio_ie88044
+-- Base de datos: cesfa
 -- MariaDB 10.4+
 --
 -- OBJETIVO:
@@ -13,7 +13,7 @@
 -- EJECUTAR DESPUÉS DEL DUMP ACTUAL.
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 SET SQL_MODE = 'NO_AUTO_VALUE_ON_ZERO';
 SET FOREIGN_KEY_CHECKS = 0;

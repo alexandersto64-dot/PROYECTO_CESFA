@@ -22,10 +22,10 @@
 --
 -- 100% ADITIVA: no modifica ni borra ninguna tabla existente.
 --
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_materiales_historial.sql
+--   mysql -u root -p cesfa < backend/config/migracion_materiales_historial.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 CREATE TABLE IF NOT EXISTS materiales_historial (
   id_historial INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,

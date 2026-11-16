@@ -1,6 +1,6 @@
-# robots.txt — I.E. 88044 (Coishco, Áncash)
+# robots.txt — CESFA (Nuevo Chimbote, Áncash)
 # IMPORTANTE: reemplazar "https://TU-DOMINIO-AQUI.pe" por el dominio real
-# una vez que el colegio tenga hosting/dominio definitivo (ver plan del proyecto).
+# una vez que CESFA tenga hosting/dominio definitivo (ver plan del proyecto).
 
 User-agent: *
 Allow: /

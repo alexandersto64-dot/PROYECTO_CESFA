@@ -290,7 +290,7 @@ $usuarios = $stmt->fetchAll();
     >
 
     <title>
-        Usuarios · Panel de Administración - I.E.P. 88044 Abraham Valdelomar
+        Usuarios · Panel de Administración - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -311,7 +311,7 @@ $usuarios = $stmt->fetchAll();
 
     <div>
         <h1>Gestionar usuarios</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
 
     <div class="header-actions">
@@ -390,7 +390,7 @@ $usuarios = $stmt->fetchAll();
             <div class="form-row">
                 <div class="field">
                     <label for="correo">Correo</label>
-                    <input type="email" name="correo" id="correo" placeholder="usuario@ie88044.edu.pe" required>
+                    <input type="email" name="correo" id="correo" placeholder="usuario@correo.com" required>
                 </div>
                 <div class="field">
                     <label for="id_rol">Rol</label>

@@ -8,10 +8,10 @@
 -- alumnos" que ya usa profesor/dashboard.php).
 --
 -- Importar después de database.sql y migracion_alumnos.sql:
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_envios.sql
+--   mysql -u root -p cesfa < backend/config/migracion_envios.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- ENVIOS_TRABAJO

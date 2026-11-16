@@ -5,10 +5,10 @@
 --   3) Papelera (soft-delete/restaurar) para Alumnos, Usuarios y Cursos.
 --
 -- Ejecutar UNA sola vez en phpMyAdmin sobre la BD real
--- `colegio_ie88044` (igual que las demás migraciones del proyecto).
+-- `cesfa` (igual que las demás migraciones del proyecto).
 -- ==========================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ----------------------------------------------------------
 -- 1) Unidades/Sesiones configurables — reutiliza la tabla

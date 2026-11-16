@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
                 correo_enviar(
                     $padreUsuario["correo"],
                     $padreUsuario["nombres"],
-                    "Matrícula aprobada - Intranet I.E.P. 88044",
+                    "Matrícula aprobada - Intranet CESFA",
                     correo_plantilla("Matrícula aprobada", "
                         <p>Hola " . htmlspecialchars($padreUsuario["nombres"]) . ",</p>
                         <p>Tu solicitud de matrícula para <strong>" . htmlspecialchars($nombreCompleto) . "</strong> fue aprobada.</p>
@@ -106,7 +106,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
                 correo_enviar(
                     $padreUsuario["correo"],
                     $padreUsuario["nombres"],
-                    "Sobre tu solicitud de matrícula - Intranet I.E.P. 88044",
+                    "Sobre tu solicitud de matrícula - Intranet CESFA",
                     correo_plantilla("Solicitud de matrícula rechazada", "
                         <p>Hola " . htmlspecialchars($padreUsuario["nombres"]) . ",</p>
                         <p>Tu solicitud de matrícula para <strong>" . htmlspecialchars($nombreCompleto) . "</strong> no pudo ser aprobada.</p>
@@ -146,7 +146,7 @@ $pendientes = solicitudes_matricula_pendientes($conexion);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitudes de matrícula · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Solicitudes de matrícula · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -159,7 +159,7 @@ $pendientes = solicitudes_matricula_pendientes($conexion);
 <header>
     <div>
         <h1>Solicitudes de matrícula</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>

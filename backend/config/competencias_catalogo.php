@@ -2,7 +2,7 @@
 
 // ==========================================================
 // Catálogo de Áreas Curriculares → Competencias, extraído
-// directamente de las 3 boletas reales que usa el colegio
+// directamente de las 3 boletas reales que usa CESFA
 // (formato oficial MINEDU "Informe de Progreso del Aprendizaje",
 // CNEB): Primaria.docx, Secundaria1ro.docx, Secundaria-2-5.docx.
 //

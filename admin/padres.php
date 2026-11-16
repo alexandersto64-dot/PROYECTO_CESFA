@@ -116,10 +116,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"])) {
                 $correoEnviado = correo_enviar(
                     $correo,
                     $nombres,
-                    "Tu cuenta del Intranet - I.E.P. 88044",
+                    "Tu cuenta del Intranet - CESFA",
                     correo_plantilla("Bienvenido al Intranet", "
                         <p>Hola " . htmlspecialchars($nombres) . ",</p>
-                        <p>Se creó tu cuenta de Padre de familia en el Intranet del I.E.P. 88044 Abraham Valdelomar.</p>
+                        <p>Se creó tu cuenta de Padre de familia en el Intranet de CESFA.</p>
                         <p><strong>Correo:</strong> " . htmlspecialchars($correo) . "<br>
                         <strong>Contraseña temporal:</strong> " . htmlspecialchars($password) . "</p>
                         <p>Ingresa y cámbiala desde tu perfil en cuanto puedas.</p>
@@ -231,7 +231,7 @@ $vinculos = $conexion->query("
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Padres de familia · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Padres de familia · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -244,7 +244,7 @@ $vinculos = $conexion->query("
 <header>
     <div>
         <h1>Padres de familia</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>

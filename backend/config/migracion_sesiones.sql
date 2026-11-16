@@ -6,10 +6,10 @@
 -- ni las creadas en migracion_materiales.sql.
 --
 -- Importar después de migracion_materiales.sql:
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_sesiones.sql
+--   mysql -u root -p cesfa < backend/config/migracion_sesiones.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- PROFESOR_SESIONES_ARCHIVOS

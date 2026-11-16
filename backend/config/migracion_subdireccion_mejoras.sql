@@ -13,10 +13,10 @@
 -- para esos dos.
 --
 -- Ejecutar UNA sola vez en phpMyAdmin sobre la BD real
--- `colegio_ie88044` (igual que las demás migraciones del proyecto).
+-- `cesfa` (igual que las demás migraciones del proyecto).
 -- ==========================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 CREATE TABLE IF NOT EXISTS `observaciones_profesor` (
   `id_observacion` INT UNSIGNED NOT NULL AUTO_INCREMENT,

@@ -9,7 +9,7 @@
 //    Solo esta plantilla (con valores de ejemplo) se sube al
 //    repositorio.
 //
-// Si el hosting real del colegio permite configurar variables de
+// Si el hosting real de CESFA permite configurar variables de
 // entorno del servidor (SMTP_HOST, SMTP_USER, etc.), esas tienen
 // prioridad sobre este archivo — ver backend/config/correo.php.
 // ==========================================
@@ -20,6 +20,6 @@ return [
     "SMTP_USER"       => "tu-correo-institucional@gmail.com",
     "SMTP_PASS"       => "tu-contraseña-de-aplicación",
     "SMTP_FROM_EMAIL" => "tu-correo-institucional@gmail.com",
-    "SMTP_FROM_NAME"  => "I.E.P. 88044 Abraham Valdelomar",
+    "SMTP_FROM_NAME"  => "CESFA",
     "SMTP_SECURE"     => "tls", // "tls" para el puerto 587, "ssl" para el puerto 465
 ];

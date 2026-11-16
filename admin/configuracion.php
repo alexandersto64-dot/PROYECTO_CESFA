@@ -73,7 +73,7 @@ $filas = $conexion->query("SELECT clave, valor FROM configuracion")->fetchAll(PD
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configuración · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Configuración · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -87,7 +87,7 @@ $filas = $conexion->query("SELECT clave, valor FROM configuracion")->fetchAll(PD
 <header>
     <div>
         <h1>Configuración</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>
@@ -105,7 +105,7 @@ $filas = $conexion->query("SELECT clave, valor FROM configuracion")->fetchAll(PD
         <h3>Datos institucionales</h3>
 
         <div class="field">
-            <label for="nombre_colegio">Nombre del colegio</label>
+            <label for="nombre_colegio">Nombre de la institución</label>
             <input type="text" name="nombre_colegio" id="nombre_colegio"
                    value="<?= htmlspecialchars($filas['nombre_colegio'] ?? '') ?>">
         </div>
@@ -126,7 +126,7 @@ $filas = $conexion->query("SELECT clave, valor FROM configuracion")->fetchAll(PD
         <button type="submit" class="btn-submit">Guardar cambios</button>
 
         <h3 style="margin-top:28px;">Unidades y Sesiones</h3>
-        <p class="placeholder-text">Cuántas Unidades (U1..U..) y cuántas Semanas/Sesiones por Unidad debe subir cada profesor — separado por nivel. Cambiar esto afecta de inmediato el Dashboard, Unidades, Sesiones y los Reportes de todo el colegio.</p>
+        <p class="placeholder-text">Cuántas Unidades (U1..U..) y cuántas Semanas/Sesiones por Unidad debe subir cada profesor — separado por nivel. Cambiar esto afecta de inmediato el Dashboard, Unidades, Sesiones y los Reportes de toda la institución.</p>
 
         <div class="form-row">
             <div class="field">

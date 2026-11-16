@@ -454,7 +454,7 @@ if (isset($_GET["editar"]) && (int)$_GET["editar"] > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profesores · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Profesores · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -468,7 +468,7 @@ if (isset($_GET["editar"]) && (int)$_GET["editar"] > 0) {
 <header>
     <div>
         <h1>Gestionar profesores</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>

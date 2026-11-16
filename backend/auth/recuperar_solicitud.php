@@ -118,10 +118,10 @@ $nombreCompleto = trim($usuario["nombres"] . " " . $usuario["apellidos"]);
 
 $cuerpo = "
     <p>Hola " . htmlspecialchars($usuario["nombres"]) . ",</p>
-    <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta en el Intranet del colegio.</p>
+    <p>Recibimos una solicitud para restablecer la contraseña de tu cuenta en el Intranet de CESFA.</p>
     <p style=\"text-align:center; margin:28px 0;\">
         <a href=\"" . htmlspecialchars($enlace) . "\"
-           style=\"background:#1D4ED8; color:#FFFFFF; text-decoration:none; padding:12px 24px; border-radius:8px; font-weight:bold; display:inline-block;\">
+           style=\"background:#1c1c6e; color:#FFFFFF; text-decoration:none; padding:12px 24px; border-radius:8px; font-weight:bold; display:inline-block;\">
             Elegir nueva contraseña
         </a>
     </p>
@@ -132,7 +132,7 @@ $cuerpo = "
 correo_enviar(
     $usuario["correo"],
     $nombreCompleto,
-    "Recuperar tu contraseña - Intranet I.E.P. 88044",
+    "Recuperar tu contraseña - Intranet CESFA",
     correo_plantilla("Recuperar contraseña", $cuerpo)
 );
 

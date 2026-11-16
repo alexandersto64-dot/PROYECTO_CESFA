@@ -141,7 +141,7 @@ foreach ($cursos as $c) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cursos · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Cursos · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -155,7 +155,7 @@ foreach ($cursos as $c) {
 <header>
     <div>
         <h1>Gestionar cursos</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="papelera.php" class="btn-secondary"><?= icon("trash") ?> Papelera</a>

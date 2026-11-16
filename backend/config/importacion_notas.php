@@ -619,7 +619,7 @@ function notas_matching_competencia(PDO $conexion, int $idCurso, string $textoCo
  * (AD/A/B/C) para Primaria y Secundaria en este formato CNEB — las
  * 3 boletas reales usan literal en TODOS los niveles (el "0-20"
  * vigesimal del sistema anterior ya no aplica a este formato), pero
- * se deja el rango numérico como alternativa por si el colegio
+ * se deja el rango numérico como alternativa por si CESFA
  * todavía registra notas antiguas en vigesimal.
  *
  * @return array{0: ?int, 1: ?string, 2: ?string} [vigesimal, literal, error]
@@ -962,7 +962,7 @@ function boleta_verificar_revisada(PDO $conexion, int $idBoleta): void {
  * El Administrador envía la boleta directamente a aprobación
  * (EN_REVISION -> REVISADA), SIN pasar por la revisión fila por
  * fila del profesor: las boletas que recibe el Admin ya llegan
- * completas y sin errores desde el colegio, así que ese paso es
+ * completas y sin errores desde CESFA, así que ese paso es
  * innecesario para este flujo.
  *
  * Solo exige que no queden filas en ERROR (alumno o curso sin
@@ -1033,7 +1033,7 @@ function boleta_rechazar(PDO $conexion, int $idBoleta, string $motivo, int $idUs
         correo_enviar(
             $boleta["correo"],
             $boleta["nombres"],
-            "Boleta de notas rechazada - Intranet I.E.P. 88044",
+            "Boleta de notas rechazada - Intranet CESFA",
             correo_plantilla("Boleta rechazada", "
                 <p>Hola " . htmlspecialchars($boleta["nombres"]) . ",</p>
                 <p>La boleta <strong>" . htmlspecialchars($boleta["nombre_archivo_original"]) . "</strong> fue rechazada.</p>
@@ -1246,7 +1246,7 @@ function boleta_publicar(PDO $conexion, int $idBoleta, int $idUsuarioSubdirector
             correo_enviar(
                 $padre["correo"],
                 $padre["nombres"],
-                "Nuevas notas disponibles - Intranet I.E.P. 88044",
+                "Nuevas notas disponibles - Intranet CESFA",
                 correo_plantilla("Nuevas notas publicadas", "
                     <p>Hola " . htmlspecialchars($padre["nombres"]) . ",</p>
                     <p>" . htmlspecialchars($mensaje) . "</p>

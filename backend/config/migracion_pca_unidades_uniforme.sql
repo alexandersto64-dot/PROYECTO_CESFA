@@ -1,7 +1,7 @@
 -- ============================================================
 -- Migración: estructura uniforme U1..U10 (PCA + Unidades + Sesiones)
 -- para Primaria y Secundaria — versión verificada contra la BD REAL
--- (colegio_ie88044.sql proporcionado por el cliente).
+-- (cesfa.sql proporcionado por el cliente).
 --
 -- HALLAZGO IMPORTANTE al comparar con la BD real:
 -- `profesor_pca_archivos`, `profesor_unidad_archivos` y
@@ -27,10 +27,10 @@
 -- para que la documentación de la BD no quede desactualizada. Es
 -- 100% opcional y no cambia tipos, restricciones ni datos.
 --
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_pca_unidades_uniforme.sql
+--   mysql -u root -p cesfa < backend/config/migracion_pca_unidades_uniforme.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 ALTER TABLE profesor_pca_archivos
   MODIFY unidad TINYINT(3) UNSIGNED NOT NULL COMMENT '1 a 10 (U1..U10)';

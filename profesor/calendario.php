@@ -7,7 +7,7 @@ require_once __DIR__ . "/../backend/config/eventos_institucionales.php";
 // CALENDARIO DEL PROFESOR — solo lectura.
 //
 // Muestra, en una sola vista:
-//   1. Los eventos institucionales "de todo el colegio" (creados
+//   1. Los eventos institucionales "de toda la institución" (creados
 //      por Admin/Subdirección sin un grado puntual) + los dirigidos
 //      a cualquiera de los grados que este profesor tiene asignados
 //      (ver eventos_listar_mes(), filtro por $idsNivelGradoProfesor).
@@ -54,7 +54,7 @@ $eventosPorDia = eventos_agrupar_por_dia($eventos);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario · Panel del Profesor - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Calendario · Panel del Profesor - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -77,7 +77,7 @@ $eventosPorDia = eventos_agrupar_por_dia($eventos);
 <main>
 
     <?php if (count($gradosAsignados) === 0): ?>
-        <div class="panel-alert panel-alert-error">Todavía no tienes ningún grado asignado, así que solo se muestran los eventos de todo el colegio.</div>
+        <div class="panel-alert panel-alert-error">Todavía no tienes ningún grado asignado, así que solo se muestran los eventos de toda la institución.</div>
     <?php endif; ?>
 
     <div class="cal-toolbar">
@@ -89,7 +89,7 @@ $eventosPorDia = eventos_agrupar_por_dia($eventos);
         </div>
     </div>
 
-    <p class="placeholder-text">Exámenes, reuniones, feriados y actividades del colegio para tu(s) grado(s), más tus propias fechas de entrega de Trabajos.</p>
+    <p class="placeholder-text">Exámenes, reuniones, feriados y actividades de CESFA para tu(s) grado(s), más tus propias fechas de entrega de Trabajos.</p>
 
     <div class="cal-legend">
         <?php foreach (["EXAMEN", "REUNION", "FERIADO", "ACTIVIDAD", "ENTREGA", "OTRO"] as $t): $m = eventos_tipo_meta($t); ?>
@@ -145,7 +145,7 @@ $eventosPorDia = eventos_agrupar_por_dia($eventos);
                         <div class="cal-agenda-meta">
                             <span class="cal-agenda-tipo <?= $m["clase"] ?>"><?= htmlspecialchars($m["label"]) ?></span>
                             <?php if (empty($ev["es_trabajo"])): ?>
-                                <span class="cal-agenda-grado"><?= $ev["id_nivel_grado"] ? htmlspecialchars(nivel_grado_label(["nombre" => $ev["grado_nombre"], "nivel" => $ev["grado_nivel"]])) : "Todo el colegio" ?></span>
+                                <span class="cal-agenda-grado"><?= $ev["id_nivel_grado"] ? htmlspecialchars(nivel_grado_label(["nombre" => $ev["grado_nombre"], "nivel" => $ev["grado_nivel"]])) : "Toda la institución" ?></span>
                             <?php else: ?>
                                 <a href="trabajos.php" class="btn-mini">Ver en Mis Trabajos</a>
                             <?php endif; ?>

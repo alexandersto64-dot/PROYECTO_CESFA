@@ -1,6 +1,6 @@
 -- ==========================================================
 -- Migración: auditoría de seguridad (IP + eventos sin usuario)
--- Ejecutar UNA sola vez en phpMyAdmin (como root), base colegio_ie88044.
+-- Ejecutar UNA sola vez en phpMyAdmin (como root), base cesfa.
 -- Amplía la tabla `auditoria` que ya existe. Sin esta migración el
 -- registro sigue funcionando como antes (sin IP ni intentos fallidos).
 -- ==========================================================

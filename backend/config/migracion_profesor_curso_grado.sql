@@ -7,7 +7,7 @@
 -- `cursos` y `niveles_grados` (Fase 1).
 --
 -- Importar:
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_profesor_curso_grado.sql
+--   mysql -u root -p cesfa < backend/config/migracion_profesor_curso_grado.sql
 -- o desde phpMyAdmin: Importar -> seleccionar este archivo.
 -- ============================================================
 

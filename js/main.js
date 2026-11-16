@@ -444,7 +444,7 @@ if (intranetToggle) {
         <input type="password" name="clave" autocomplete="current-password" required>
       </label>
       <button type="submit" class="btn btn-primary intranet-submit">Ingresar</button>
-      <p class="intranet-note placeholder-text">[Intranet institucional — módulo pendiente de implementación por el colegio.]</p>
+      <p class="intranet-note placeholder-text">[Intranet institucional — módulo pendiente de implementación por CESFA.]</p>
     </form>
   `;
   intranetToggle.insertAdjacentElement('afterend', panel);
@@ -471,18 +471,15 @@ if (intranetToggle) {
 // Índice de páginas y secciones del sitio. Al agregar contenido real,
 // conviene actualizar "keywords" y "snippet" para mejores resultados.
 const SEARCH_INDEX = [
-  { title: 'Bienvenida', url: 'bienvenida.html', category: 'Nuestro Colegio', keywords: 'bienvenida mensaje director inicio presentación', snippet: 'Mensaje de bienvenida y datos institucionales.' },
-  { title: 'Nuestra Historia', url: 'historia.html', category: 'Nuestro Colegio', keywords: 'historia fundación reseña trayectoria', snippet: 'Reseña histórica de la institución.' },
-  { title: 'Nuestros Valores', url: 'valores.html', category: 'Nuestro Colegio', keywords: 'valores misión visión principios', snippet: 'Misión, visión y valores institucionales.' },
-  { title: 'Nuestro Espacio', url: 'espacio.html', category: 'Nuestro Colegio', keywords: 'espacio infraestructura aulas patio innovación pedagógica instalaciones', snippet: 'Infraestructura y espacios del colegio.' },
-  { title: 'Galería', url: 'galeria.html', category: 'Nuestro Colegio', keywords: 'galería fotos imágenes fotografías', snippet: 'Fotos del colegio con vista ampliada.' },
-  { title: 'Preescolar', url: 'preescolar.html', category: 'Niveles', keywords: 'preescolar inicial niños jardín', snippet: 'Información del nivel Preescolar.' },
-  { title: 'Primaria', url: 'primaria.html', category: 'Niveles', keywords: 'primaria estudiantes grados', snippet: 'Información del nivel Primaria.' },
-  { title: 'Padres de Familia', url: 'padres.html', category: 'Comunidad', keywords: 'padres familia matrícula calendario preguntas frecuentes faq comunicación', snippet: 'Matrícula, calendario y preguntas frecuentes.' },
-  { title: 'Docentes de Primaria', url: 'docentes-primaria.html', category: 'Comunidad', keywords: 'docentes profesores maestros primaria equipo personal aula innovación pedagógica', snippet: 'Equipo docente de Primaria por área.' },
-  { title: 'Docentes de Secundaria', url: 'docentes-secundaria.html', category: 'Comunidad', keywords: 'docentes profesores maestros secundaria equipo personal aula innovación pedagógica', snippet: 'Equipo docente de Secundaria por área.' },
-  { title: 'Noticias', url: 'noticias.html', category: 'Más', keywords: 'noticias comunicados eventos calendario próximos', snippet: 'Comunicados y próximos eventos del colegio.' },
-  { title: 'Contacto', url: 'contacto.html', category: 'Más', keywords: 'contacto dirección ubicación teléfono correo mapa formulario', snippet: 'Formulario, dirección y ubicación del colegio.' },
+  { title: 'Nosotros', url: 'nosotros.html', category: 'CESFA', keywords: 'nosotros misión visión institución cesfa centro', snippet: 'Conoce CESFA.' },
+  { title: 'Cocina', url: 'Cocina.html', category: 'Carreras', keywords: 'cocina carrera programa', snippet: 'Información de la carrera de Cocina.' },
+  { title: 'Computación e Informática', url: 'Computacion_e_Informatica.html', category: 'Carreras', keywords: 'computación informática carrera programa', snippet: 'Información de la carrera de Computación e Informática.' },
+  { title: 'Electrónica', url: 'Electronica.html', category: 'Carreras', keywords: 'electrónica carrera programa', snippet: 'Información de la carrera de Electrónica.' },
+  { title: 'Estilismo', url: 'Estilismo.html', category: 'Carreras', keywords: 'estilismo carrera programa', snippet: 'Información de la carrera de Estilismo.' },
+  { title: 'Fabricación de Prendas de Vestir', url: 'Fabricacion_de_Prendas_de_Vestir.html', category: 'Carreras', keywords: 'fabricación prendas vestir confección carrera programa', snippet: 'Información de la carrera de Fabricación de Prendas de Vestir.' },
+  { title: 'Secretariado Ejecutivo Computarizado', url: 'Secretariado_Ejecutivo_Computarizado.html', category: 'Carreras', keywords: 'secretariado ejecutivo computarizado carrera programa', snippet: 'Información de la carrera de Secretariado Ejecutivo Computarizado.' },
+  { title: 'Comunicados', url: 'comunicado.html', category: 'Más', keywords: 'comunicados noticias avisos', snippet: 'Comunicados de CESFA.' },
+  { title: 'Contacto', url: 'contacto.html', category: 'Más', keywords: 'contacto dirección ubicación teléfono correo mapa formulario', snippet: 'Formulario, dirección y ubicación de CESFA.' },
 ];
 
 try {
@@ -560,13 +557,13 @@ try {
 
 
 // ============ EVENTOS / CALENDARIO ESCOLAR ============
-// Fechas de ejemplo — reemplazar por el calendario real que confirme el colegio.
+// Fechas de ejemplo — reemplazar por el calendario real que confirme CESFA.
 const SCHOOL_EVENTS = [
-  { date: '2026-08-30', title: '[Simulacro Nacional de Sismo — fecha referencial]', desc: '[Descripción pendiente de confirmar con el colegio.]' },
-  { date: '2026-09-23', title: '[Día de la Primavera — fecha referencial]', desc: '[Descripción pendiente de confirmar con el colegio.]' },
-  { date: '2026-10-08', title: '[Aniversario del colegio — fecha referencial]', desc: '[Descripción pendiente de confirmar con el colegio.]' },
-  { date: '2026-11-20', title: '[Semana de la Educación Vial — fecha referencial]', desc: '[Descripción pendiente de confirmar con el colegio.]' },
-  { date: '2026-12-18', title: '[Clausura del año escolar — fecha referencial]', desc: '[Descripción pendiente de confirmar con el colegio.]' },
+  { date: '2026-08-30', title: '[Simulacro Nacional de Sismo — fecha referencial]', desc: '[Descripción pendiente de confirmar con CESFA.]' },
+  { date: '2026-09-23', title: '[Día de la Primavera — fecha referencial]', desc: '[Descripción pendiente de confirmar con CESFA.]' },
+  { date: '2026-10-08', title: '[Aniversario de CESFA — fecha referencial]', desc: '[Descripción pendiente de confirmar con CESFA.]' },
+  { date: '2026-11-20', title: '[Semana de la Educación Vial — fecha referencial]', desc: '[Descripción pendiente de confirmar con CESFA.]' },
+  { date: '2026-12-18', title: '[Clausura del año escolar — fecha referencial]', desc: '[Descripción pendiente de confirmar con CESFA.]' },
 ];
 
 const MESES = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
@@ -731,7 +728,7 @@ try {
 
       scheduleModalBody.innerHTML = rows.length
         ? rows.map(r => `<tr><td>${r.dia || ''}</td><td>${r.hora || ''}</td><td>${r.curso || ''}</td><td>${r.grado || ''}</td></tr>`).join('')
-        : `<tr><td colspan="4" class="placeholder-text">[Horario pendiente de confirmar con el colegio]</td></tr>`;
+        : `<tr><td colspan="4" class="placeholder-text">[Horario pendiente de confirmar con CESFA]</td></tr>`;
 
       scheduleModalOverlay.classList.add('open');
     }
@@ -760,7 +757,7 @@ try {
 // es grado+sección (#gradoSeccionFiltersPrimaria / data-grado-primaria).
 // El grado/sección de cada docente sale de data-grados-primaria (mismo
 // campo JSON vacío "[]" que ya usaba data-secciones en el modal
-// "Ver más" mientras el colegio no confirme esa información) — no se
+// "Ver más" mientras CESFA no confirme esa información) — no se
 // inventa ninguna asignación: hasta que ese campo se complete por
 // docente, "TODOS" muestra las tarjetas existentes y cualquier grado
 // específico mostrará el aviso de "sin coincidencias" en vez de
@@ -840,7 +837,7 @@ try {
 //   data-area, data-grado, data-seccion  -> Área / Grado / Sección (cuando existan)
 //   data-teacher-name, data-teacher-role -> encabezado del modal (Nombre / Rol)
 //   data-horario-img -> ruta de la imagen del horario de ese profesor/curso.
-//                       Mientras el colegio no entregue la foto real, este
+//                       Mientras CESFA no entregue la foto real, este
 //                       atributo queda vacío ("") y el visor muestra el
 //                       aviso de "pendiente de registrar" en su lugar.
 //                       Cada profesor/curso tiene su propio atributo, así
@@ -1221,7 +1218,7 @@ document.addEventListener("DOMContentLoaded", function () {
      data-teacher-role  -> cargo / área (texto)
      data-horario       -> JSON array de strings, ej: ["Lunes a Viernes: 8:00am - 1:00pm"]
      data-info          -> JSON array de strings con la descripción del área
-     data-contacto      -> JSON array de strings, ej: ["Anexo: 101", "correo@colegio.edu.pe"]
+     data-contacto      -> JSON array de strings, ej: ["Anexo: 101", "correo@ejemplo.com"]
    Mientras no haya datos reales, deja el atributo como "[]" y se mostrará
    automáticamente "Información pendiente de registrar."
    ========================================================= */

@@ -27,7 +27,7 @@ use Smalot\PdfParser\Parser as PdfParserPos;
 
 // Área EIB: aparece impresa en la boleta (con filas vacías) y hay que
 // "consumir" sus filas para que no se confundan con las de Inglés,
-// pero no se importa (el colegio no es EIB, ver competencias_catalogo.php).
+// pero no se importa (CESFA no es EIB, ver competencias_catalogo.php).
 const BOLETA_AREA_CASTELLANO_L2 = [
     "Se comunica oralmente",
     "Lee diversos tipos de textos escritos",

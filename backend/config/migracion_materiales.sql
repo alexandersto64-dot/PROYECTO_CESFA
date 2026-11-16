@@ -8,10 +8,10 @@
 --
 -- Importar después de database.sql, migracion_alumnos.sql y
 -- migracion_envios.sql:
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_materiales.sql
+--   mysql -u root -p cesfa < backend/config/migracion_materiales.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- PROFESOR_PCA_ARCHIVOS

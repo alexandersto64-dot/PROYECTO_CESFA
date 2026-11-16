@@ -21,10 +21,10 @@ require_once "../backend/config/admin_seguimiento.php";
 // ==========================================================
 // Cuentas familiares por alumno (acceso con CÓDIGO DE ESTUDIANTE).
 //
-// Cuando el colegio no tiene los nombres ni correos de los padres,
+// Cuando CESFA no tiene los nombres ni correos de los padres,
 // se crea UNA cuenta de usuario (rol PADRE) por alumno:
 //   - nombres = "Familia", apellidos = apellidos del alumno
-//   - correo técnico único y NO real: <codigo>@padres.ie88044.invalid
+//   - correo técnico único y NO real: <codigo>@padres.cesfa.invalid
 //     (el dominio .invalid está reservado: nunca recibe correo)
 //   - vínculo en padres_alumnos con ese alumno
 //   - contraseña temporal aleatoria (solo se guarda el hash)
@@ -39,7 +39,7 @@ require_once "../backend/config/admin_seguimiento.php";
 //     texto). Nunca por nombre.
 // ==========================================================
 
-const FAMILIA_DOMINIO = "padres.ie88044.invalid";
+const FAMILIA_DOMINIO = "padres.cesfa.invalid";
 const CODIGO_LARGO = 14;
 
 $idRolPadre = (int) $conexion->query("SELECT id_rol FROM roles WHERE nombre = 'PADRE'")->fetchColumn();
@@ -393,7 +393,7 @@ if ($credenciales === null) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cuentas familiares · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Cuentas familiares · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -406,7 +406,7 @@ if ($credenciales === null) {
 <header>
     <div>
         <h1>Cuentas familiares (acceso con código de estudiante)</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="padres.php">Padres de familia</a>

@@ -82,7 +82,7 @@ $documentos = $stmt->fetchAll();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Documentos Institucionales · <?= htmlspecialchars($etiqueta) ?> · Panel del Profesor - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Documentos Institucionales · <?= htmlspecialchars($etiqueta) ?> · Panel del Profesor - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -119,7 +119,7 @@ $documentos = $stmt->fetchAll();
     </div>
 
     <p class="placeholder-text" style="margin-bottom:20px;">
-        Documentos generales del colegio y documentos específicos de <?= htmlspecialchars($etiqueta) ?>.
+        Documentos generales de CESFA y documentos específicos de <?= htmlspecialchars($etiqueta) ?>.
         Esta vista es de solo lectura; el registro de documentos lo hace Administración.
     </p>
 

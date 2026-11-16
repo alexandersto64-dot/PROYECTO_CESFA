@@ -1,7 +1,7 @@
 -- ============================================================
 -- Migración: Tutoría (SOLO Secundaria, asignación dinámica por
 -- año escolar / período académico) — versión verificada contra la
--- BD REAL (colegio_ie88044.sql proporcionado por el cliente).
+-- BD REAL (cesfa.sql proporcionado por el cliente).
 --
 -- 100% ADITIVA: no modifica ni borra ninguna tabla existente. No
 -- toca `asignaciones_docentes`, `profesor_curso_grado`,
@@ -36,10 +36,10 @@
 -- representan un año escolar completo.
 --
 -- Importar sobre la BD real ya existente:
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_tutoria.sql
+--   mysql -u root -p cesfa < backend/config/migracion_tutoria.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- PROFESOR_TUTORIA

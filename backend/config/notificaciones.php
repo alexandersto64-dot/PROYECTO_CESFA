@@ -103,7 +103,7 @@ require_once __DIR__ . "/materiales_cursos.php";
  *
  * No existe en la BD ninguna fecha de "corte de bimestre": la tabla
  * `periodos_academicos` solo tiene `id_periodo` y `nombre` (ver
- * backend/config/colegio_ie88044.sql y subdirector/periodos.php),
+ * backend/config/cesfa.sql y subdirector/periodos.php),
  * sin ninguna fecha de inicio/fin. La única fecha académica real que
  * existe en el proyecto es `trabajos.fecha_limite` (la fecha límite
  * que el propio profesor define al crear un trabajo desde

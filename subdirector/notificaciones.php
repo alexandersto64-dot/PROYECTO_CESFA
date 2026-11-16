@@ -48,7 +48,7 @@ if ($notificacionesNoLeidas > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notificaciones · Panel del Subdirector - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Notificaciones · Panel del Subdirector - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -62,7 +62,7 @@ if ($notificacionesNoLeidas > 0) {
 <header>
     <div>
         <h1>Notificaciones</h1>
-        <p>Panel del Subdirector · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel del Subdirector · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>

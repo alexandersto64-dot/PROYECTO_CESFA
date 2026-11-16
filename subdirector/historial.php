@@ -82,7 +82,7 @@ $claseAccion = [
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Historial de materiales · Panel del Subdirector - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Historial de materiales · Panel del Subdirector - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -95,7 +95,7 @@ $claseAccion = [
 <header>
     <div>
         <h1>Historial de materiales</h1>
-        <p>Panel del Subdirector · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel del Subdirector · CESFA</p>
     </div>
     <div class="header-actions">
         <?php if ($profesorSeleccionado): ?>

@@ -205,7 +205,7 @@ if ($modo === "correo") {
     // Solo quien ya acertó la contraseña se entera de que la cuenta está inactiva.
     if ($fila["estado"] !== "ACTIVO") {
         auditoria_evento($conexion, (int) $fila["id_usuario"], "LOGIN_FALLIDO", "SESION", (int) $fila["id_usuario"], "Cuenta inactiva");
-        volverConError("Tu cuenta se encuentra inactiva. Comunícate con el colegio.");
+        volverConError("Tu cuenta se encuentra inactiva. Comunícate con CESFA.");
     }
 
     $usuario = $fila;

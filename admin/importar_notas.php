@@ -128,7 +128,7 @@ $alumnos = $conexion->query("SELECT id_alumno, nombres, apellidos, dni FROM alum
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Importar notas · Panel de Administración - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Importar notas · Panel de Administración - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -141,7 +141,7 @@ $alumnos = $conexion->query("SELECT id_alumno, nombres, apellidos, dni FROM alum
 <header>
     <div>
         <h1>Importar notas desde PDF</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="importaciones_pendientes.php">Ver historial de importaciones</a>

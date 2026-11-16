@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // "salte" en cada página del panel. En móvil el botón ni siquiera
     // es visible (ver CSS), así que esto no afecta el menú deslizante.
     var collapseBtn = document.getElementById("sidebarCollapseBtn");
-    var COLLAPSE_KEY = "ie88044_sidebar_collapsed";
+    var COLLAPSE_KEY = "cesfa_sidebar_collapsed";
 
     if (collapseBtn) {
 
@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // enlace activo siempre se muestra expandido al cargar, sin
     // importar lo guardado, para que el profesor no "pierda" en qué
     // sección está parado.
-    var GROUP_COLLAPSE_PREFIX = "ie88044_sidebar_group_";
+    var GROUP_COLLAPSE_PREFIX = "cesfa_sidebar_group_";
 
     document.querySelectorAll(".sidebar-group-toggle").forEach(function (boton) {
 

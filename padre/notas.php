@@ -92,7 +92,7 @@ $urlPdf = $boletaSeleccionada
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        Boleta de notas - I.E.P. 88044 Abraham Valdelomar
+        Boleta de notas - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -144,7 +144,7 @@ $urlPdf = $boletaSeleccionada
         <div class="empty-state">
             <span class="empty-state-icon" aria-hidden="true"><?= icon("clipboard") ?></span>
             <h2>Boleta aún no disponible</h2>
-            <p>Cuando el colegio publique la boleta de notas, podrás verla y descargarla aquí.</p>
+            <p>Cuando CESFA publique la boleta de notas, podrás verla y descargarla aquí.</p>
         </div>
 
     <?php else: ?>

@@ -28,7 +28,7 @@ $etiquetasComportamiento = ["POSITIVO" => "Positivo", "NEGATIVO" => "Negativo", 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        Comportamiento - I.E.P. 88044 Abraham Valdelomar
+        Comportamiento - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">

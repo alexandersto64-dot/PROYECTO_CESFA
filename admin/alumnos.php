@@ -242,7 +242,7 @@ $alumnos = $stmt->fetchAll();
     >
 
     <title>
-        Alumnos · Panel de Administración - I.E.P. 88044 Abraham Valdelomar
+        Alumnos · Panel de Administración - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -263,7 +263,7 @@ $alumnos = $stmt->fetchAll();
 
     <div>
         <h1>Gestionar alumnos</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
 
     <div class="header-actions">

@@ -92,7 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"], $_POST["id_
                 correo_enviar(
                     $profesorUsuario["correo"],
                     trim($profesorUsuario["nombres"] . " " . $profesorUsuario["apellidos"]),
-                    "Tu trabajo fue aprobado - Intranet I.E.P. 88044",
+                    "Tu trabajo fue aprobado - Intranet CESFA",
                     correo_plantilla("Trabajo aprobado", "
                         <p>Hola " . htmlspecialchars($profesorUsuario["nombres"]) . ",</p>
                         <p>Subdirección aprobó el trabajo que enviaste:</p>
@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["accion"], $_POST["id_
                     correo_enviar(
                         $profesorUsuario["correo"],
                         trim($profesorUsuario["nombres"] . " " . $profesorUsuario["apellidos"]),
-                        "Tu trabajo requiere cambios - Intranet I.E.P. 88044",
+                        "Tu trabajo requiere cambios - Intranet CESFA",
                         correo_plantilla("Trabajo con observaciones", "
                             <p>Hola " . htmlspecialchars($profesorUsuario["nombres"]) . ",</p>
                             <p>Subdirección revisó el trabajo que enviaste y solicita algunos cambios:</p>
@@ -249,7 +249,7 @@ if (isset($_GET["historial"]) && (int) $_GET["historial"] > 0) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Revisión de trabajos · Panel del Subdirector - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Revisión de trabajos · Panel del Subdirector - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -262,7 +262,7 @@ if (isset($_GET["historial"]) && (int) $_GET["historial"] > 0) {
 <header>
     <div>
         <h1>Revisión de trabajos</h1>
-        <p>Panel de Supervisión Académica · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Supervisión Académica · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/reportes/trabajos_pdf.php?descargar=1" target="_blank"><?= icon("file-text") ?> Descargar PDF</a>

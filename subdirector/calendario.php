@@ -126,7 +126,7 @@ $tituloMes = ucfirst(mes_nombre_es($mes)) . " de " . $anio;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendario Académico · Panel del Subdirector - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Calendario Académico · Panel del Subdirector - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -140,7 +140,7 @@ $tituloMes = ucfirst(mes_nombre_es($mes)) . " de " . $anio;
 <header>
     <div>
         <h1>Calendario Académico</h1>
-        <p>Panel del Subdirector · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel del Subdirector · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/auth/logout.php">Cerrar sesión</a>
@@ -186,7 +186,7 @@ $tituloMes = ucfirst(mes_nombre_es($mes)) . " de " . $anio;
         <div class="field">
             <label for="id_nivel_grado">Dirigido a</label>
             <select name="id_nivel_grado" id="id_nivel_grado">
-                <option value="0">Todo el colegio</option>
+                <option value="0">Toda la institución</option>
                 <?php foreach ($nivelesGrados as $ng): ?>
                     <option value="<?= (int) $ng["id_nivel_grado"] ?>"><?= htmlspecialchars(nivel_grado_label($ng)) ?></option>
                 <?php endforeach; ?>
@@ -208,7 +208,7 @@ $tituloMes = ucfirst(mes_nombre_es($mes)) . " de " . $anio;
         </div>
     </div>
 
-    <p class="placeholder-text">Exámenes, reuniones, feriados y actividades del colegio, en un solo lugar. "Dirigido a" decide quién lo ve: todo el colegio o un grado puntual.</p>
+    <p class="placeholder-text">Exámenes, reuniones, feriados y actividades de CESFA, en un solo lugar. "Dirigido a" decide quién lo ve: toda la institución o un grado puntual.</p>
 
     <div class="cal-legend">
         <?php foreach (["EXAMEN", "REUNION", "FERIADO", "ACTIVIDAD", "OTRO"] as $t): $m = eventos_tipo_meta($t); ?>
@@ -263,7 +263,7 @@ $tituloMes = ucfirst(mes_nombre_es($mes)) . " de " . $anio;
                         <?php endif; ?>
                         <div class="cal-agenda-meta">
                             <span class="cal-agenda-tipo <?= $m["clase"] ?>"><?= htmlspecialchars($m["label"]) ?></span>
-                            <span class="cal-agenda-grado"><?= $ev["id_nivel_grado"] ? htmlspecialchars(nivel_grado_label(["nombre" => $ev["grado_nombre"], "nivel" => $ev["grado_nivel"]])) : "Todo el colegio" ?></span>
+                            <span class="cal-agenda-grado"><?= $ev["id_nivel_grado"] ? htmlspecialchars(nivel_grado_label(["nombre" => $ev["grado_nombre"], "nivel" => $ev["grado_nivel"]])) : "Toda la institución" ?></span>
                             <span class="placeholder-text" style="margin:0;">Creado por <?= htmlspecialchars($ev["nombres"] . " " . $ev["apellidos"]) ?></span>
                             <form method="POST" class="cal-agenda-actions" onsubmit="return confirm('¿Eliminar este evento del calendario?');">
                             <?= csrf_field() ?>

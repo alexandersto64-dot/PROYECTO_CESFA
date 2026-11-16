@@ -1,6 +1,6 @@
 <?php
 // ==========================================================
-// RESPALDO AUTOMÁTICO — I.E.P. 88044
+// RESPALDO AUTOMÁTICO — CESFA
 // Genera un .sql de la base de datos y un .zip de los archivos
 // subidos (boletas, materiales, envíos). Se ejecuta SOLO por
 // consola:   php respaldar.php [--destino=RUTA] [--conservar=N]
@@ -19,7 +19,7 @@ $destinoBase = !empty($opciones['destino']) ? rtrim($opciones['destino'], '/\\')
 $conservar = isset($opciones['conservar']) ? max(1, (int)$opciones['conservar']) : 14;
 
 // --- Credenciales: las mismas que usa el sistema (database.php / database.local.php)
-$host = 'localhost'; $dbname = 'colegio_ie88044'; $user = 'root'; $pass = '';
+$host = 'localhost'; $dbname = 'cesfa'; $user = 'root'; $pass = '';
 $local = $raiz . '/backend/config/database.local.php';
 if (is_file($local)) {
     $cfg = require $local;

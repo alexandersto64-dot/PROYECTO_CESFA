@@ -32,11 +32,11 @@
 -- Importar en este orden (requiere que `notas`, `alumnos`, `cursos`,
 -- `matriculas`, `periodos_academicos`, `profesor_curso_grado` ya
 -- existan):
---   mysql -u root -p colegio_ie88044 < migracion_boletas_notas.sql
---   mysql -u root -p colegio_ie88044 < seed_competencias.sql
+--   mysql -u root -p cesfa < migracion_boletas_notas.sql
+--   mysql -u root -p cesfa < seed_competencias.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- 1. COMPETENCIAS (catálogo por curso)

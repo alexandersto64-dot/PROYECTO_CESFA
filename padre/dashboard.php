@@ -96,7 +96,7 @@ function padre_tiempo_relativo(?string $fecha): ?string
     >
 
     <title>
-        Panel del Padre de Familia - I.E.P. 88044 Abraham Valdelomar
+        Panel del Padre de Familia - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -130,7 +130,7 @@ function padre_tiempo_relativo(?string $fecha): ?string
             <div class="header-avatar"><?= htmlspecialchars(mb_strtoupper(mb_substr($_SESSION["nombres"], 0, 1)) . mb_strtoupper(mb_substr($_SESSION["apellidos"] ?? "", 0, 1))) ?></div>
             <div class="header-identity-text">
                 <strong><?= htmlspecialchars($_SESSION["nombres"]) ?> <?= htmlspecialchars($_SESSION["apellidos"] ?? "") ?></strong>
-                <span>I.E.P. 88044</span>
+                <span>CESFA</span>
             </div>
         </div>
 
@@ -177,7 +177,7 @@ function padre_tiempo_relativo(?string $fecha): ?string
             <span class="empty-state-icon" aria-hidden="true"><?= icon("smile") ?></span>
             <h2>Sin hijos vinculados todavía</h2>
             <p>
-                Pide a la Dirección/Administración del colegio que vincule a tu(s) hijo(a/s)
+                Pide a la Dirección/Administración de CESFA que vincule a tu(s) hijo(a/s)
                 a tu cuenta para poder ver sus notas, comportamiento y hacer trámites de matrícula.
             </p>
         </div>

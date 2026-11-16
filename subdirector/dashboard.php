@@ -184,7 +184,7 @@ $ultimosPendientes = dashboard_cache("subdirector_ultimos_pendientes", DASHBOARD
     >
 
     <title>
-        Subdirector - I.E.P. 88044 Abraham Valdelomar
+        Subdirector - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -394,7 +394,7 @@ $ultimosPendientes = dashboard_cache("subdirector_ultimos_pendientes", DASHBOARD
 
         <div class="card">
             <h3><?= icon("calendar") ?> Calendario académico</h3>
-            <p>Exámenes, reuniones, feriados y actividades del colegio.</p>
+            <p>Exámenes, reuniones, feriados y actividades de CESFA.</p>
             <a href="calendario.php">Ver calendario</a>
         </div>
 

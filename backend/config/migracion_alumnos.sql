@@ -2,10 +2,10 @@
 -- Migración: módulo Alumnos / Matrículas
 -- Solo agrega tablas nuevas. No modifica ni borra nada existente.
 -- Importar después de database.sql:
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_alumnos.sql
+--   mysql -u root -p cesfa < backend/config/migracion_alumnos.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- GRADOS Y SECCIONES (coincide con las páginas ya publicadas:

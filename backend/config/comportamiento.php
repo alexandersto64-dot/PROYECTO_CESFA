@@ -62,7 +62,7 @@ function comportamiento_registrar(PDO $conexion, int $idAlumno, int $idPeriodo, 
         correo_enviar(
             $padre["correo"],
             $padre["nombres"],
-            "Nueva incidencia de comportamiento - Intranet I.E.P. 88044",
+            "Nueva incidencia de comportamiento - Intranet CESFA",
             correo_plantilla("Comportamiento registrado", "
                 <p>Hola " . htmlspecialchars($padre["nombres"]) . ",</p>
                 <p>" . htmlspecialchars($mensaje) . "</p>

@@ -12,12 +12,12 @@
 -- #1062 al importar. PADRE y AUXILIAR pasan a 6 y 7, que es
 -- justo el siguiente AUTO_INCREMENT libre de `roles` en la BD real.
 --
--- Importar después de colegio_ie88044.sql (y de migracion_alumnos.sql
+-- Importar después de cesfa.sql (y de migracion_alumnos.sql
 -- / migracion_niveles.sql, ya aplicadas):
---   mysql -u root -p colegio_ie88044 < migracion_portal_padres.sql
+--   mysql -u root -p cesfa < migracion_portal_padres.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- ROLES NUEVOS

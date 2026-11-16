@@ -1,6 +1,6 @@
 -- ==========================================================
 -- Migración: intentos de login fallidos guardados en la BD
--- Ejecutar UNA sola vez en phpMyAdmin (como root), base colegio_ie88044.
+-- Ejecutar UNA sola vez en phpMyAdmin (como root), base cesfa.
 -- Sin esta tabla el login usa archivos temporales (funciona igual).
 -- ==========================================================
 

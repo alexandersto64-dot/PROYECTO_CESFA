@@ -10,7 +10,7 @@
 //   Sesiones  -> 1 archivo por curso/grado/Unidad(U1..U10)/Sem-0X.
 //
 // Cada entrada fue verificada contra la tabla real `cursos` de la
-// BD (colegio_ie88044): la clave de la izquierda es el identificador
+// BD (cesfa): la clave de la izquierda es el identificador
 // corto y estable que se guarda en profesor_unidad_archivos.curso /
 // profesor_sesion_archivos.curso; el valor es el nombre visible
 // (se muestran algunos nombres abreviados a pedido, pero cada uno

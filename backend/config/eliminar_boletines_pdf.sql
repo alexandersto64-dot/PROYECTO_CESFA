@@ -6,7 +6,7 @@
 -- importación con análisis, que sigue en uso).
 --
 -- Ejecutar una sola vez (haz un respaldo antes):
---   mysql -u root colegio_ie88044 < eliminar_boletines_pdf.sql
+--   mysql -u root cesfa < eliminar_boletines_pdf.sql
 -- ==========================================================
 
 DROP TABLE IF EXISTS `boletines_pdf`;

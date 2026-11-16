@@ -285,7 +285,7 @@ $nombreCursoFoco = $cursoFoco !== "" ? materiales_curso_nombre($cursoFoco, $nive
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesiones · <?= htmlspecialchars($etiqueta) ?> · Panel del Profesor - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Sesiones · <?= htmlspecialchars($etiqueta) ?> · Panel del Profesor - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>

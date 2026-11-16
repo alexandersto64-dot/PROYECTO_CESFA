@@ -17,7 +17,7 @@ use Dompdf\Dompdf;
 use Dompdf\Options;
 
 /**
- * Devuelve el escudo del colegio como data URI base64, para
+ * Devuelve el escudo de CESFA como data URI base64, para
  * incrustarlo directamente en el HTML del PDF (Dompdf no siempre
  * puede resolver rutas relativas de imagen de forma confiable
  * según desde qué script se genere el reporte, así que se incrusta
@@ -27,8 +27,8 @@ use Dompdf\Options;
  * ya sea porque el archivo no existe o porque el servidor no tiene
  * la extensión GD de PHP instalada (Dompdf la necesita para
  * incrustar imágenes PNG/JPG en el PDF). En ese caso, quien llama
- * a esta función debe omitir el <img> y mostrar solo el nombre del
- * colegio en el encabezado — así el reporte se genera igual, sin
+ * a esta función debe omitir el <img> y mostrar solo el nombre de
+ * CESFA en el encabezado — así el reporte se genera igual, sin
  * error 500, con o sin GD disponible en el servidor.
  */
 function pdf_logo_base64(): string {
@@ -44,7 +44,7 @@ function pdf_logo_base64(): string {
         return $dataUri;
     }
 
-    $ruta = __DIR__ . "/../../img/brand/escudo.png";
+    $ruta = __DIR__ . "/../../img/brand/logo-cesfa.png";
 
     if (!file_exists($ruta)) {
         $dataUri = "";
@@ -60,7 +60,7 @@ function pdf_logo_base64(): string {
 /**
  * Envuelve el contenido específico de un reporte (tablas, listas,
  * etc. — ya armadas por quien llama) en la plantilla institucional
- * común: encabezado azul con escudo y nombre del colegio, título
+ * común: encabezado azul con escudo y nombre de CESFA, título
  * del reporte, y pie con fecha/hora de generación y quién lo
  * generó. Mismos colores que css/styles.css (--ocean-deep, --ink,
  * --text-secondary, --sand) y que correo_plantilla() en correo.php,
@@ -84,7 +84,7 @@ function pdf_plantilla(
     $fecha = date("d/m/Y H:i");
     $logo = pdf_logo_base64();
     $logoHtml = $logo !== ""
-        ? '<td style="width:40px;"><img src="' . $logo . '" alt=""></td>'
+        ? '<td style="width:78px;background:#ffffff;padding:3px 5px;"><img src="' . $logo . '" alt="" style="width:70px;"></td>'
         : "";
 
     return <<<HTML
@@ -103,7 +103,7 @@ function pdf_plantilla(
 
     body {
         font-family: "DejaVu Sans", sans-serif;
-        color: #16263B;
+        color: #15163f;
         font-size: 10.5px;
         line-height: 1.5;
     }
@@ -114,7 +114,7 @@ function pdf_plantilla(
         left: 0;
         right: 0;
         height: 60px;
-        background: #1D4ED8;
+        background: #1c1c6e;
         color: #FFFFFF;
         padding: 12px 24px;
     }
@@ -150,7 +150,7 @@ function pdf_plantilla(
 
     h1.titulo-reporte {
         font-size: 17px;
-        color: #1D4ED8;
+        color: #1c1c6e;
         margin: 0 0 2px;
     }
     p.subtitulo-reporte {
@@ -161,8 +161,8 @@ function pdf_plantilla(
 
     h2 {
         font-size: 12.5px;
-        color: #16263B;
-        border-bottom: 2px solid #BAE6FD;
+        color: #15163f;
+        border-bottom: 2px solid #d9daf6;
         padding-bottom: 4px;
         margin: 20px 0 8px;
     }
@@ -173,14 +173,14 @@ function pdf_plantilla(
         margin-bottom: 12px;
     }
     table.reporte-tabla th {
-        background: #F0F7FE;
-        color: #16263B;
+        background: #f1f2fb;
+        color: #15163f;
         text-align: left;
         font-size: 9.5px;
         text-transform: uppercase;
         letter-spacing: .03em;
         padding: 6px 8px;
-        border-bottom: 2px solid #BAE6FD;
+        border-bottom: 2px solid #d9daf6;
     }
     table.reporte-tabla td {
         padding: 6px 8px;
@@ -188,7 +188,7 @@ function pdf_plantilla(
         font-size: 10px;
     }
     table.reporte-tabla tr:nth-child(even) td {
-        background: #FAFCFF;
+        background: #fafaff;
     }
 
     .stats-resumen {
@@ -204,7 +204,7 @@ function pdf_plantilla(
         display: block;
         font-size: 19px;
         font-weight: bold;
-        color: #1D4ED8;
+        color: #1c1c6e;
     }
     .stats-resumen .etiqueta {
         display: block;
@@ -223,7 +223,7 @@ function pdf_plantilla(
     }
     .badge-verde  { background: #dcfce7; color: #15803d; }
     .badge-rojo   { background: #fee2e2; color: #b91c1c; }
-    .badge-azul   { background: #dbeafe; color: #1D4ED8; }
+    .badge-azul   { background: #e1e1f8; color: #1c1c6e; }
     .badge-gris   { background: #EEF2F7; color: #4A5A6A; }
 
     .placeholder-text { color: #4A5A6A; font-style: italic; }
@@ -236,7 +236,7 @@ function pdf_plantilla(
         <table>
             <tr>
                 {$logoHtml}
-                <td class="institucion">I.E.P. 88044 Abraham Valdelomar</td>
+                <td class="institucion">CESFA</td>
                 <td class="reporte-nombre">Intranet · Reporte institucional</td>
             </tr>
         </table>
@@ -252,7 +252,7 @@ function pdf_plantilla(
     </footer>
 
     <h1 class="titulo-reporte">{$titulo}</h1>
-    <p class="subtitulo-reporte">{$sub} · I.E.P. 88044 Abraham Valdelomar</p>
+    <p class="subtitulo-reporte">{$sub} · CESFA</p>
 
     {$contenidoHtml}
 

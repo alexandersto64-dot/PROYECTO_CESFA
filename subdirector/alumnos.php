@@ -36,7 +36,7 @@ $alumnos = $conexion->query("
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alumnos · Panel del Subdirector - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Alumnos · Panel del Subdirector - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -50,7 +50,7 @@ $alumnos = $conexion->query("
 <header>
     <div>
         <h1>Consultar alumnos</h1>
-        <p>Panel del Subdirector · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel del Subdirector · CESFA</p>
     </div>
     <div class="header-actions">
         <a href="../backend/reportes/alumnos_pdf.php?descargar=1" target="_blank"><?= icon("file-text") ?> Descargar PDF</a>

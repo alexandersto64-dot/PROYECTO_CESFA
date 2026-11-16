@@ -205,7 +205,7 @@ $gradosAsignados = profesor_grados_asignados($conexion, $profesor["id_profesor"]
     >
 
     <title>
-        Envíos a Subdirección - I.E.P. 88044 Abraham Valdelomar
+        Envíos a Subdirección - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -233,7 +233,7 @@ $gradosAsignados = profesor_grados_asignados($conexion, $profesor["id_profesor"]
             <div class="header-avatar"><?= htmlspecialchars(mb_strtoupper(mb_substr($profesor["nombres"], 0, 1)) . mb_strtoupper(mb_substr($profesor["apellidos"], 0, 1))) ?></div>
             <div class="header-identity-text">
                 <strong><?= htmlspecialchars($profesor["nombres"]) ?> <?= htmlspecialchars($profesor["apellidos"]) ?></strong>
-                <span>I.E.P. 88044</span>
+                <span>CESFA</span>
             </div>
         </div>
     </div>

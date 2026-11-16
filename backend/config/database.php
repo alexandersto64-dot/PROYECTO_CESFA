@@ -1,7 +1,7 @@
 <?php
 
 $host = "localhost";
-$dbname = "colegio_ie88044";
+$dbname = "cesfa";
 $username = "root";
 $password = "";
 

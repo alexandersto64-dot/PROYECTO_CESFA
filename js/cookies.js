@@ -1,6 +1,6 @@
 /* ============================================================
-   AVISO DE COOKIES — I.E.P. 88044
-   - Guarda la decisión en localStorage ("ie88044_cookies").
+   AVISO DE COOKIES — CESFA
+   - Guarda la decisión en localStorage ("cesfa_cookies").
    - Las cookies NECESARIAS (sesión del intranet) siempre están
      activas; las OPCIONALES (analítica/terceros) solo si el
      usuario las acepta. Hoy el sitio no usa opcionales, pero la
@@ -11,7 +11,7 @@
 (function () {
   'use strict';
 
-  var CLAVE = 'ie88044_cookies';
+  var CLAVE = 'cesfa_cookies';
   var VERSION = 1;               // sube el número para volver a pedir consentimiento
   var VIGENCIA_MS = 180 * 24 * 60 * 60 * 1000; // 6 meses
 

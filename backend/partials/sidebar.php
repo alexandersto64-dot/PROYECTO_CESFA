@@ -109,6 +109,7 @@ $menus = [
                 ]],
                 ["label" => "Profesores", "icon" => "briefcase", "href" => "profesores.php"],
                 ["label" => "Cursos", "icon" => "book", "href" => "cursos.php"],
+                ["label" => "Programas y módulos", "icon" => "layers", "href" => "programas.php"],
                 ["label" => "Importar notas (PDF)", "icon" => "upload", "children" => [
                     ["label" => "Subir boleta", "href" => "importar_notas.php"],
                     ["label" => "Historial de importaciones", "href" => "importaciones_pendientes.php"],
@@ -349,7 +350,7 @@ if ($tutoriaSidebar && isset($menu["grupos"])) {
         <div class="sidebar-brand">
             <span class="sidebar-brand-icon"><?= icon("building") ?></span>
             <div class="sidebar-label">
-                <strong>I.E.P. 88044</strong>
+                <strong>CESFA</strong>
                 <span><?= htmlspecialchars($menu["titulo"]) ?></span>
             </div>
         </div>

@@ -185,7 +185,7 @@ $matriculas = $stmt->fetchAll();
     >
 
     <title>
-        Matrículas · Panel de Administración - I.E.P. 88044 Abraham Valdelomar
+        Matrículas · Panel de Administración - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
@@ -206,7 +206,7 @@ $matriculas = $stmt->fetchAll();
 
     <div>
         <h1>Gestionar matrículas</h1>
-        <p>Panel de Administración · I.E.P. 88044 Abraham Valdelomar</p>
+        <p>Panel de Administración · CESFA</p>
     </div>
 
     <div class="header-actions">

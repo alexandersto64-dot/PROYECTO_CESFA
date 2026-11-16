@@ -77,7 +77,7 @@ $observaciones = observaciones_listar($conexion, $idProfesor);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bitácora · Panel del Subdirector - I.E.P. 88044 Abraham Valdelomar</title>
+    <title>Bitácora · Panel del Subdirector - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -91,7 +91,7 @@ $observaciones = observaciones_listar($conexion, $idProfesor);
 <header>
     <div>
         <h1>Bitácora de <?= htmlspecialchars($profesor["nombres"] . " " . $profesor["apellidos"]) ?></h1>
-        <p>Panel del Subdirector · I.E.P. 88044 Abraham Valdelomar · <?= htmlspecialchars($profesor["especialidad"]) ?></p>
+        <p>Panel del Subdirector · CESFA · <?= htmlspecialchars($profesor["especialidad"]) ?></p>
     </div>
     <div class="header-actions">
         <a href="reportes.php" class="btn-secondary">← Volver a Reportes</a>

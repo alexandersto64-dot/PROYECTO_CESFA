@@ -71,7 +71,7 @@ $secciones = profesor_secciones_por_grado($conexion, $idProfesor, $nivelGrado);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($etiqueta) ?> · Panel del Profesor - I.E.P. 88044 Abraham Valdelomar</title>
+    <title><?= htmlspecialchars($etiqueta) ?> · Panel del Profesor - CESFA</title>
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">
     <link rel="stylesheet" href="../css/dashboard.css?v=202609300252">
 </head>
@@ -171,7 +171,7 @@ include __DIR__ . "/../backend/partials/sidebar.php";
             </div>
             <div class="card">
                 <h3><?= icon("folder") ?> Documentos Institucionales</h3>
-                <p>Documentos generales del colegio y específicos de este grado.</p>
+                <p>Documentos generales de CESFA y específicos de este grado.</p>
                 <div class="card-foot" style="justify-content:flex-end;">
                     <a href="documentos.php?id_nivel_grado=<?= $idNivelGrado ?>">Abrir Documentos</a>
                 </div>

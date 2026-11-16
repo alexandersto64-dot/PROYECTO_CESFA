@@ -1,5 +1,5 @@
 -- ============================================================
--- I.E.P. 88044 Abraham Valdelomar — Base de datos del Intranet
+-- CESFA — Base de datos del Intranet
 -- ============================================================
 -- Contiene exactamente las tablas y columnas que ya usa el
 -- código PHP existente (backend/auth/login.php, admin/dashboard.php,
@@ -11,16 +11,16 @@
 --
 -- Uso:
 --   1. Crear la base de datos (coincide con backend/config/database.php):
---        CREATE DATABASE colegio_ie88044 CHARACTER SET utf8mb4;
+--        CREATE DATABASE cesfa CHARACTER SET utf8mb4;
 --   2. Importar este archivo:
---        mysql -u root -p colegio_ie88044 < backend/config/database.sql
+--        mysql -u root -p cesfa < backend/config/database.sql
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS colegio_ie88044
+CREATE DATABASE IF NOT EXISTS cesfa
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- ROLES
@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS configuracion (
 ) ENGINE=InnoDB;
 
 INSERT INTO configuracion (clave, valor) VALUES
-  ('nombre_colegio', 'I.E.P. 88044 Abraham Valdelomar'),
+  ('nombre_colegio', 'CESFA'),
   ('correo_contacto', ''),
   ('telefono_contacto', '')
 ON DUPLICATE KEY UPDATE clave = clave;
@@ -191,7 +191,7 @@ ON DUPLICATE KEY UPDATE clave = clave;
 --   VALUES (
 --     'Nombre',
 --     'Apellido',
---     'correo@ie88044.edu.pe',
+--     'correo@correo.com',
 --     '$2y$10$PEGA_AQUI_EL_HASH_GENERADO',
 --     'ACTIVO',
 --     (SELECT id_rol FROM roles WHERE nombre = 'ADMIN')

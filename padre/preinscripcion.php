@@ -88,7 +88,7 @@ $etiquetasEstado = ["PENDIENTE" => "Pendiente", "APROBADA" => "Aprobada", "RECHA
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>
-        Preinscripción de matrícula - I.E.P. 88044 Abraham Valdelomar
+        Preinscripción de matrícula - CESFA
     </title>
 
     <link rel="stylesheet" href="../css/styles.css?v=202609211855">

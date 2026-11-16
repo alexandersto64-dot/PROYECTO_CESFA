@@ -11,7 +11,7 @@
 //   - ADMIN y SUBDIRECTOR: crean/eliminan eventos y ven TODOS,
 //     sin importar a qué nivel+grado estén dirigidos.
 //   - PROFESOR: solo lee (no crea), y solo ve los eventos "de todo
-//     el colegio" (id_nivel_grado NULL) + los de los nivel+grado que
+//     CESFA" (id_nivel_grado NULL) + los de los nivel+grado que
 //     tiene asignados (ver profesor_grados_asignados() en
 //     profesor_grados.php) — nunca los de un grado ajeno. Además ve
 //     sus propios Trabajos como "entregas" en el mismo calendario.
@@ -142,7 +142,7 @@ function eventos_eliminar(PDO $conexion, int $idEvento): void {
  *
  * @param int[]|null $idsNivelGradoVisibles null = sin filtro (Admin/
  *   Subdirección, ven todo). Array (puede ser vacío) = solo eventos
- *   de todo el colegio (id_nivel_grado NULL) + los de esos grados
+ *   de toda la institución (id_nivel_grado NULL) + los de esos grados
  *   puntuales (uso del Profesor).
  */
 function eventos_listar_mes(PDO $conexion, int $anio, int $mes, ?array $idsNivelGradoVisibles = null): array {

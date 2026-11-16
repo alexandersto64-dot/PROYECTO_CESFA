@@ -7,10 +7,10 @@
 -- contraseña ni el token en texto plano — se guarda su hash).
 --
 -- Importar después de database.sql:
---   mysql -u root -p colegio_ie88044 < backend/config/migracion_restablecimientos_password.sql
+--   mysql -u root -p cesfa < backend/config/migracion_restablecimientos_password.sql
 -- ============================================================
 
-USE colegio_ie88044;
+USE cesfa;
 
 -- ------------------------------------------------------------
 -- RESTABLECIMIENTOS_PASSWORD

@@ -11,7 +11,7 @@
 -- el formulario de "Periodos académicos".
 --
 -- Ejecutar UNA sola vez en phpMyAdmin sobre la BD real
--- `colegio_ie88044` (igual que las demás migraciones del proyecto).
+-- `cesfa` (igual que las demás migraciones del proyecto).
 -- ==========================================================
 
 -- Nota: si tu versión de MySQL/MariaDB no soporta "IF NOT EXISTS"

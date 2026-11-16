@@ -11,7 +11,7 @@
 // hosting de producción — y si no existe, cae a
 // backend/config/correo.local.php (para XAMPP local, donde definir
 // variables de entorno del sistema operativo no es práctico para
-// un colegio). correo.local.php NUNCA se sube a git (ver
+// una institución). correo.local.php NUNCA se sube a git (ver
 // .gitignore) — solo se sube correo.local.php.example, con valores
 // de ejemplo, no reales.
 //
@@ -67,7 +67,7 @@ function correo_config(): array {
         "usuario"     => (string) $leer("SMTP_USER"),
         "clave"       => (string) $leer("SMTP_PASS"),
         "from_email"  => (string) $leer("SMTP_FROM_EMAIL"),
-        "from_nombre" => (string) $leer("SMTP_FROM_NAME", "I.E.P. 88044 Abraham Valdelomar"),
+        "from_nombre" => (string) $leer("SMTP_FROM_NAME", "CESFA"),
         "seguridad"   => (string) $leer("SMTP_SECURE", "tls"), // "tls" (puerto 587) o "ssl" (puerto 465)
     ];
 
@@ -171,26 +171,26 @@ function correo_plantilla(string $tituloCorto, string $contenidoHtml): string {
 <meta charset="UTF-8">
 <title>{$titulo}</title>
 </head>
-<body style="margin:0; padding:0; background:#F0F7FE; font-family: Arial, Helvetica, sans-serif;">
-  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F0F7FE; padding:24px 0;">
+<body style="margin:0; padding:0; background:#f1f2fb; font-family: Arial, Helvetica, sans-serif;">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f2fb; padding:24px 0;">
     <tr>
       <td align="center">
         <table role="presentation" width="480" cellpadding="0" cellspacing="0" style="background:#FFFFFF; border-radius:12px; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.08); max-width:480px;">
           <tr>
-            <td style="background:#1D4ED8; padding:20px 28px;">
+            <td style="background:#1c1c6e; padding:20px 28px;">
               <span style="color:#FFFFFF; font-size:16px; font-weight:bold; font-family: Arial, Helvetica, sans-serif;">
-                I.E.P. 88044 Abraham Valdelomar
+                CESFA
               </span>
             </td>
           </tr>
           <tr>
-            <td style="padding:28px; color:#16263B; font-size:14px; line-height:1.6;">
+            <td style="padding:28px; color:#15163f; font-size:14px; line-height:1.6;">
               {$contenidoHtml}
             </td>
           </tr>
           <tr>
-            <td style="padding:16px 28px; background:#F0F7FE; color:#4A5A6A; font-size:12px;">
-              Este es un mensaje automático del Intranet del colegio. No respondas a este correo.
+            <td style="padding:16px 28px; background:#f1f2fb; color:#4A5A6A; font-size:12px;">
+              Este es un mensaje automático del Intranet de CESFA. No respondas a este correo.
             </td>
           </tr>
         </table>
